@@ -196,7 +196,7 @@ paths:
       - objectverzoeken
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     post:
       operationId: objectverzoek_create
       summary: Maak een OBJECT-VERZOEK relatie aan.
@@ -345,7 +345,7 @@ paths:
       - objectverzoeken
       security:
       - JWT-Claims:
-        - klanten.aanmaken
+        - verzoeken.aanmaken
     parameters: []
   /objectverzoeken/{uuid}:
     get:
@@ -502,7 +502,7 @@ paths:
       - objectverzoeken
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     delete:
       operationId: objectverzoek_delete
       summary: Verwijder een OBJECT-VERZOEK relatie.
@@ -636,7 +636,7 @@ paths:
       - objectverzoeken
       security:
       - JWT-Claims:
-        - klanten.verwijderen
+        - verzoeken.verwijderen
     parameters:
     - name: uuid
       in: path
@@ -792,7 +792,7 @@ paths:
       - verzoekcontactmomenten
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     post:
       operationId: verzoekcontactmoment_create
       summary: Maak een VERZOEK-CONTACTMOMENT relatie aan.
@@ -945,7 +945,7 @@ paths:
       - verzoekcontactmomenten
       security:
       - JWT-Claims:
-        - klanten.aanmaken
+        - verzoeken.aanmaken
     parameters: []
   /verzoekcontactmomenten/{uuid}:
     get:
@@ -1102,7 +1102,7 @@ paths:
       - verzoekcontactmomenten
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     delete:
       operationId: verzoekcontactmoment_delete
       summary: Verwijder een VERZOEK-CONTACTMOMENT relatie.
@@ -1228,7 +1228,7 @@ paths:
       - verzoekcontactmomenten
       security:
       - JWT-Claims:
-        - klanten.verwijderen
+        - verzoeken.verwijderen
     parameters:
     - name: uuid
       in: path
@@ -1357,7 +1357,7 @@ paths:
       - verzoeken
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     post:
       operationId: verzoek_create
       summary: Maak een VERZOEK aan.
@@ -1494,7 +1494,7 @@ paths:
       - verzoeken
       security:
       - JWT-Claims:
-        - klanten.aanmaken
+        - verzoeken.aanmaken
     parameters: []
   /verzoeken/{uuid}:
     get:
@@ -1651,7 +1651,7 @@ paths:
       - verzoeken
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     put:
       operationId: verzoek_update
       summary: Werk een VERZOEK in zijn geheel bij.
@@ -1795,7 +1795,7 @@ paths:
       - verzoeken
       security:
       - JWT-Claims:
-        - klanten.bijwerken
+        - verzoeken.bijwerken
     patch:
       operationId: verzoek_partial_update
       summary: Werk een VERZOEK deels bij.
@@ -1939,7 +1939,7 @@ paths:
       - verzoeken
       security:
       - JWT-Claims:
-        - klanten.bijwerken
+        - verzoeken.bijwerken
     delete:
       operationId: verzoek_delete
       summary: Verwijder een VERZOEK.
@@ -2065,7 +2065,7 @@ paths:
       - verzoeken
       security:
       - JWT-Claims:
-        - klanten.verwijderen
+        - verzoeken.verwijderen
     parameters:
     - name: uuid
       in: path
@@ -2223,7 +2223,7 @@ paths:
       - verzoekinformatieobjecten
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     post:
       operationId: verzoekinformatieobject_create
       summary: Maak een VERZOEK-INFORMATIEOBJECT relatie aan.
@@ -2369,7 +2369,7 @@ paths:
       - verzoekinformatieobjecten
       security:
       - JWT-Claims:
-        - klanten.aanmaken
+        - verzoeken.aanmaken
     parameters: []
   /verzoekinformatieobjecten/{uuid}:
     get:
@@ -2526,7 +2526,7 @@ paths:
       - verzoekinformatieobjecten
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     delete:
       operationId: verzoekinformatieobject_delete
       summary: Verwijder een VERZOEK-INFORMATIEOBJECT relatie.
@@ -2652,7 +2652,7 @@ paths:
       - verzoekinformatieobjecten
       security:
       - JWT-Claims:
-        - klanten.verwijderen
+        - verzoeken.verwijderen
     parameters:
     - name: uuid
       in: path
@@ -2815,7 +2815,7 @@ paths:
       - verzoekproducten
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     post:
       operationId: verzoekproduct_create
       summary: Maak een VERZOEK-PRODUCT relatie aan.
@@ -2965,7 +2965,7 @@ paths:
       - verzoekproducten
       security:
       - JWT-Claims:
-        - klanten.aanmaken
+        - verzoeken.aanmaken
     parameters: []
   /verzoekproducten/{uuid}:
     get:
@@ -3122,7 +3122,7 @@ paths:
       - verzoekproducten
       security:
       - JWT-Claims:
-        - klanten.lezen
+        - verzoeken.lezen
     delete:
       operationId: verzoekproduct_delete
       summary: Verwijder een VERZOEK-PRODUCT relatie.
@@ -3248,7 +3248,7 @@ paths:
       - verzoekproducten
       security:
       - JWT-Claims:
-        - klanten.verwijderen
+        - verzoeken.verwijderen
     parameters:
     - name: uuid
       in: path

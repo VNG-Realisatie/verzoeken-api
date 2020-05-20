@@ -23,10 +23,10 @@ from .filters import (
     VerzoekProductFilter,
 )
 from .scopes import (
-    SCOPE_KLANTEN_AANMAKEN,
-    SCOPE_KLANTEN_ALLES_LEZEN,
-    SCOPE_KLANTEN_ALLES_VERWIJDEREN,
-    SCOPE_KLANTEN_BIJWERKEN,
+    SCOPE_VERZOEKEN_AANMAKEN,
+    SCOPE_VERZOEKEN_ALLES_LEZEN,
+    SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
+    SCOPE_VERZOEKEN_BIJWERKEN,
 )
 from .serializers import (
     ObjectVerzoekSerializer,
@@ -80,12 +80,12 @@ class VerzoekViewSet(viewsets.ModelViewSet):
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
-        "list": SCOPE_KLANTEN_ALLES_LEZEN,
-        "retrieve": SCOPE_KLANTEN_ALLES_LEZEN,
-        "create": SCOPE_KLANTEN_AANMAKEN,
-        "update": SCOPE_KLANTEN_BIJWERKEN,
-        "partial_update": SCOPE_KLANTEN_BIJWERKEN,
-        "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
+        "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "create": SCOPE_VERZOEKEN_AANMAKEN,
+        "update": SCOPE_VERZOEKEN_BIJWERKEN,
+        "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
+        "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
     }
 
 
@@ -138,10 +138,10 @@ class ObjectVerzoekViewSet(
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
-        "list": SCOPE_KLANTEN_ALLES_LEZEN,
-        "retrieve": SCOPE_KLANTEN_ALLES_LEZEN,
-        "create": SCOPE_KLANTEN_AANMAKEN,
-        "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
+        "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "create": SCOPE_VERZOEKEN_AANMAKEN,
+        "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
     }
 
     def perform_destroy(self, instance):
@@ -222,12 +222,12 @@ class VerzoekInformatieObjectViewSet(
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
-        "list": SCOPE_KLANTEN_ALLES_LEZEN,
-        "retrieve": SCOPE_KLANTEN_ALLES_LEZEN,
-        "create": SCOPE_KLANTEN_AANMAKEN,
-        "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
-        "update": SCOPE_KLANTEN_BIJWERKEN,
-        "partial_update": SCOPE_KLANTEN_BIJWERKEN,
+        "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "create": SCOPE_VERZOEKEN_AANMAKEN,
+        "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
+        "update": SCOPE_VERZOEKEN_BIJWERKEN,
+        "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
 
     def get_queryset(self):
@@ -303,12 +303,12 @@ class VerzoekContactMomentViewSet(
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
-        "list": SCOPE_KLANTEN_ALLES_LEZEN,
-        "retrieve": SCOPE_KLANTEN_ALLES_LEZEN,
-        "create": SCOPE_KLANTEN_AANMAKEN,
-        "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
-        "update": SCOPE_KLANTEN_BIJWERKEN,
-        "partial_update": SCOPE_KLANTEN_BIJWERKEN,
+        "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "create": SCOPE_VERZOEKEN_AANMAKEN,
+        "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
+        "update": SCOPE_VERZOEKEN_BIJWERKEN,
+        "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
 
 
@@ -353,10 +353,10 @@ class VerzoekProductViewSet(
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
-        "list": SCOPE_KLANTEN_ALLES_LEZEN,
-        "retrieve": SCOPE_KLANTEN_ALLES_LEZEN,
-        "create": SCOPE_KLANTEN_AANMAKEN,
-        "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
-        "update": SCOPE_KLANTEN_BIJWERKEN,
-        "partial_update": SCOPE_KLANTEN_BIJWERKEN,
+        "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
+        "create": SCOPE_VERZOEKEN_AANMAKEN,
+        "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
+        "update": SCOPE_VERZOEKEN_BIJWERKEN,
+        "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }

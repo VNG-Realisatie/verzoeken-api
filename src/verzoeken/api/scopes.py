@@ -4,39 +4,39 @@ Defines the scopes used in the CMC component.
 
 from vng_api_common.scopes import Scope
 
-SCOPE_KLANTEN_ALLES_VERWIJDEREN = Scope(
-    "klanten.verwijderen",
+SCOPE_VERZOEKEN_ALLES_VERWIJDEREN = Scope(
+    "verzoeken.verwijderen",
     description="""
 **Laat toe om**:
 
-* klanten te verwijderen
+* verzoeken te verwijderen
 """,
 )
 
-SCOPE_KLANTEN_ALLES_LEZEN = Scope(
-    "klanten.lezen",
+SCOPE_VERZOEKEN_ALLES_LEZEN = Scope(
+    "verzoeken.lezen",
     description="""
 **Laat toe om**:
 
-* klanten te lezen
-* klantdetails op te vragen
+* verzoeken te lezen
+* verzoekdetails op te vragen
 """,
 )
 
-SCOPE_KLANTEN_BIJWERKEN = Scope(
-    "klanten.bijwerken",
+SCOPE_VERZOEKEN_BIJWERKEN = Scope(
+    "verzoeken.bijwerken",
     description="""
 **Laat toe om**:
 
-* attributen van een klant te wijzingen
+* attributen van een verzoek te wijzingen
 """,
 )
 
-SCOPE_KLANTEN_AANMAKEN = Scope(
-    "klanten.aanmaken",
+SCOPE_VERZOEKEN_AANMAKEN = Scope(
+    "verzoeken.aanmaken",
     description="""
 **Laat toe om**:
 
-* klanten aan te maken
+* verzoeken aan te maken
 """,
 )
