@@ -1,0 +1,57 @@
+---
+
+# Deployment
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: kcc
+  namespace: gemma
+  labels:
+    k8s-app: kcc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kcc
+  template:
+    metadata:
+      name: kcc
+      labels:
+        k8s-app: kcc
+    spec:
+      containers:
+      - name: kcc
+        image: vngr/vng-referentielijsten:0.1.0
+        env:
+          - name: DJANGO_SETTINGS_MODULE
+            value: kcc.conf.docker
+          - name: SUBPATH
+            value: /referentielijsten
+          - name: DB_HOST
+            value: postgres-kcc
+          - name: SECRET_KEY
+            value: <REDACTED>
+          - name: DB_PASSWORD
+            value: <REDACTED>
+          - name: SENTRY_DSN
+            value: <REDACTED>
+
+---
+
+# Service
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: kcc
+  namespace: gemma
+  labels:
+    k8s-app: kcc
+spec:
+  selector:
+    k8s-app: kcc
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
