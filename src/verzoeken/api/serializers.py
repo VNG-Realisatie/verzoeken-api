@@ -30,11 +30,7 @@ from .validators import ObjectVerzoekCreateValidator
 logger = logging.getLogger(__name__)
 
 
-class KlantInteractieSerializer(serializers.HyperlinkedModelSerializer):
-    pass
-
-
-class VerzoekSerializer(KlantInteractieSerializer):
+class VerzoekSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Verzoek
         fields = (

@@ -13,7 +13,11 @@ from vng_api_common.validators import alphanumeric_excluding_diacritic
 from .constants import ObjectTypes, VerzoekStatus
 
 
-class KlantInteractie(models.Model):
+class Verzoek(APIMixin, models.Model):
+    """
+    Verzoek is een speciaal contactmoment.
+    """
+
     uuid = models.UUIDField(
         unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
     )
@@ -47,16 +51,6 @@ class KlantInteractie(models.Model):
             "Het communicatiekanaal dat voor opvolging van de klantinteractie de voorkeur heeft van de KLANT."
         ),
     )
-
-    class Meta:
-        abstract = True
-
-
-class Verzoek(APIMixin, KlantInteractie):
-    """
-    Verzoek is een speciaal contactmoment.
-    """
-
     identificatie = models.CharField(
         max_length=40,
         blank=True,
@@ -89,7 +83,7 @@ class Verzoek(APIMixin, KlantInteractie):
         super().save(*args, **kwargs)
 
 
-class ObjectKlantInteractie(models.Model):
+class ObjectVerzoek(APIMixin, models.Model):
     uuid = models.UUIDField(
         unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
     )
@@ -102,12 +96,6 @@ class ObjectKlantInteractie(models.Model):
         choices=ObjectTypes.choices,
         help_text="Het type van het gerelateerde OBJECT.",
     )
-
-    class Meta:
-        abstract = True
-
-
-class ObjectVerzoek(APIMixin, ObjectKlantInteractie):
     verzoek = models.ForeignKey(
         "datamodel.Verzoek",
         on_delete=models.CASCADE,
