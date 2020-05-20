@@ -3,11 +3,11 @@ Klantcontactcomponent
 ========================
 
 :Version: 0.1.0
-:Source: https://github.com/VNG-Realisatie/klantinteracties-api
-:Keywords: zaken, zaakgericht werken, GEMMA, KIC
+:Source: https://github.com/VNG-Realisatie/verzoeken-api
+:Keywords: zaken, zaakgericht werken, GEMMA
 :PythonVersion: 3.7
 
-|build-status| |black|
+ |black|
 
 Referentieimplementatie van de verzoeken.
 
@@ -40,10 +40,6 @@ Copyright © VNG Realisatie 2019
 Licensed under the EUPL_
 
 .. _EUPL: LICENCE.md
-
-.. |build-status| image:: https://travis-ci.org/VNG-Realisatie/klantinteracties-api.svg?branch=master
-    :alt: Build status
-    :target: https://travis-ci.org/VNG-Realisatie/klantinteracties-api
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
