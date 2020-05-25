@@ -7,7 +7,10 @@ from django.utils.translation import ugettext_lazy as _
 
 from vng_api_common.fields import RSINField
 from vng_api_common.models import APIMixin
-from vng_api_common.utils import generate_unique_identification
+from vng_api_common.utils import (
+    generate_unique_identification,
+    request_object_attribute,
+)
 from vng_api_common.validators import alphanumeric_excluding_diacritic
 
 from .constants import ObjectTypes, VerzoekStatus
@@ -82,6 +85,9 @@ class Verzoek(APIMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    def unique_representation(self):
+        return f"{self.bronorganisatie} - {self.identificatie}"
+
 
 class ObjectVerzoek(APIMixin, models.Model):
     uuid = models.UUIDField(
@@ -132,6 +138,14 @@ class VerzoekProduct(APIMixin, models.Model):
                 code="invalid-product",
             )
 
+    def unique_representation(self):
+        product_id = (
+            self.product.rstrip("/").split("/")[-1]
+            if self.product
+            else self.product_code
+        )
+        return f"({self.verzoek.unique_representation()}) - {product_id}"
+
 
 class VerzoekInformatieObject(models.Model):
     uuid = models.UUIDField(
@@ -158,15 +172,15 @@ class VerzoekInformatieObject(models.Model):
     def __str__(self):
         return str(self.uuid)
 
-    # def unique_representation(self):
-    #     if not hasattr(self, "_unique_representation"):
-    #         io_id = request_object_attribute(
-    #             self.informatieobject, "identificatie", "enkelvoudiginformatieobject"
-    #         )
-    #         self._unique_representation = (
-    #             f"({self.verzoek.unique_representation()}) - {io_id}"
-    #         )
-    #     return self._unique_representation
+    def unique_representation(self):
+        if not hasattr(self, "_unique_representation"):
+            io_id = request_object_attribute(
+                self.informatieobject, "identificatie", "enkelvoudiginformatieobject"
+            )
+            self._unique_representation = (
+                f"({self.verzoek.unique_representation()}) - {io_id}"
+            )
+        return self._unique_representation
 
 
 class VerzoekContactMoment(models.Model):
@@ -190,3 +204,7 @@ class VerzoekContactMoment(models.Model):
 
     def __str__(self):
         return str(self.uuid)
+
+    def unique_representation(self):
+        contactmoment_id = self.contactmoment.rstrip("/").split("/")[-1]
+        return f"({self.verzoek.unique_representation()}) - {contactmoment_id}"

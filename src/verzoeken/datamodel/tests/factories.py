@@ -36,3 +36,11 @@ class VerzoekContactMomentFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = "datamodel.VerzoekContactMoment"
+
+
+class VerzoekInformatieObjectFactory(factory.django.DjangoModelFactory):
+    verzoek = factory.SubFactory(VerzoekFactory)
+    informatieobject = factory.Faker("url")
+
+    class Meta:
+        model = "datamodel.VerzoekInformatieObject"

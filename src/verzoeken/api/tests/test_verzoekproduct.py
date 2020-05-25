@@ -56,7 +56,7 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
                 "url": f"http://testserver{detail_url}",
                 "verzoek": f"http://testserver{verzoek_url}",
                 "product": verzoekproduct.product,
-                "productIdentificatie": {"code": "",},
+                "productIdentificatie": {"code": ""},
             },
         )
 
@@ -77,7 +77,7 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
                 "url": f"http://testserver{detail_url}",
                 "verzoek": f"http://testserver{verzoek_url}",
                 "product": "",
-                "productIdentificatie": {"code": "test",},
+                "productIdentificatie": {"code": "test"},
             },
         )
 

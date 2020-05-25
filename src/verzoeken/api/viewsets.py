@@ -5,6 +5,12 @@ from django.core.cache import caches
 from rest_framework import mixins, viewsets
 from rest_framework.serializers import ValidationError
 from rest_framework.settings import api_settings
+from vng_api_common.audittrails.viewsets import (
+    AuditTrailCreateMixin,
+    AuditTrailDestroyMixin,
+    AuditTrailViewSet,
+    AuditTrailViewsetMixin,
+)
 from vng_api_common.permissions import AuthScopesRequired
 from vng_api_common.viewsets import CheckQueryParamsMixin
 
@@ -16,6 +22,7 @@ from verzoeken.datamodel.models import (
     VerzoekProduct,
 )
 
+from .audits import AUDIT_VERZOEKEN
 from .filters import (
     ObjectVerzoekFilter,
     VerzoekContactMomentFilter,
@@ -40,7 +47,7 @@ from .validators import ObjectVerzoekDestroyValidator
 logger = logging.getLogger(__name__)
 
 
-class VerzoekViewSet(viewsets.ModelViewSet):
+class VerzoekViewSet(AuditTrailViewsetMixin, viewsets.ModelViewSet):
     """
     Opvragen en bewerken van VERZOEKen.
 
@@ -87,6 +94,7 @@ class VerzoekViewSet(viewsets.ModelViewSet):
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
         "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
     }
+    audit = AUDIT_VERZOEKEN
 
 
 class ObjectVerzoekViewSet(
@@ -159,6 +167,8 @@ class ObjectVerzoekViewSet(
 
 
 class VerzoekInformatieObjectViewSet(
+    AuditTrailCreateMixin,
+    AuditTrailDestroyMixin,
     CheckQueryParamsMixin,
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
@@ -229,11 +239,12 @@ class VerzoekInformatieObjectViewSet(
         "update": SCOPE_VERZOEKEN_BIJWERKEN,
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
+    audit = AUDIT_VERZOEKEN
 
     def get_queryset(self):
         qs = super().get_queryset()
 
-        # Do not display BesluitInformatieObjecten that are marked to be deleted
+        # Do not display VerzoekInformatieObjecten that are marked to be deleted
         cache = caches["drc_sync"]
 
         # TODO: Store cachekeys somewhere central.
@@ -244,6 +255,8 @@ class VerzoekInformatieObjectViewSet(
 
 
 class VerzoekContactMomentViewSet(
+    AuditTrailCreateMixin,
+    AuditTrailDestroyMixin,
     CheckQueryParamsMixin,
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
@@ -310,9 +323,12 @@ class VerzoekContactMomentViewSet(
         "update": SCOPE_VERZOEKEN_BIJWERKEN,
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
+    audit = AUDIT_VERZOEKEN
 
 
 class VerzoekProductViewSet(
+    AuditTrailCreateMixin,
+    AuditTrailDestroyMixin,
     CheckQueryParamsMixin,
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
@@ -360,3 +376,22 @@ class VerzoekProductViewSet(
         "update": SCOPE_VERZOEKEN_BIJWERKEN,
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
+    audit = AUDIT_VERZOEKEN
+
+
+class VerzoekAuditTrailViewSet(AuditTrailViewSet):
+    """
+    Opvragen van de audit trail regels.
+
+    list:
+    Alle audit trail regels behorend bij het VERZOEK.
+
+    Alle audit trail regels behorend bij het VERZOEK.
+
+    retrieve:
+    Een specifieke audit trail regel opvragen.
+
+    Een specifieke audit trail regel opvragen.
+    """
+
+    main_resource_lookup_field = "verzoek_uuid"
