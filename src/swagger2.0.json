@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "verzoeken API",
-        "description": "Een API voor het registreren, bewerken en opvragen van verzoeken.\n\n**Afhankelijkheden**\n\nDeze API is afhankelijk van:\n\n* Autorisaties API\n* Klanten API\n* Contactmomenten API (optioneel)\n* Zaken API *(optioneel)*\n* Documenten API *(optioneel)*\n\n**Autorisatie**\n\nDeze API vereist autorisatie. Je kan de\n[token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te\ngenereren.\n\n**Handige links**\n\n* [Documentatie](https://zaakgerichtwerken.vng.cloud/standaard)\n* [Zaakgericht werken](https://zaakgerichtwerken.vng.cloud)\n",
+        "description": "Een API voor het registreren, bewerken en opvragen van verzoeken.\n\n**Afhankelijkheden**\n\nDeze API is afhankelijk van:\n\n* Autorisaties API\n* Klanten API\n* Contactmomenten API (optioneel)\n* Zaken API *(optioneel)*\n* Documenten API *(optioneel)*\n\n**Autorisatie**\n\nDeze API vereist autorisatie. Je kan de\n[token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te\ngenereren.\n\n** Notificaties\n\nDeze API publiceert notificaties op het kanaal `verzoeken`.\n\n**Main resource**\n\n`verzoek`\n\n\n\n**Kenmerken**\n\n* `bronorganisatie`: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef\n\n**Resources en acties**\n\n\n**Handige links**\n\n* [Documentatie](https://zaakgerichtwerken.vng.cloud/standaard)\n* [Zaakgericht werken](https://zaakgerichtwerken.vng.cloud)\n",
         "contact": {
             "url": "https://zaakgerichtwerken.vng.cloud",
             "email": "standaarden.ondersteuning@vng.nl"
@@ -926,6 +926,27 @@
                         "schema": {
                             "$ref": "#/definitions/VerzoekContactMoment"
                         }
+                    },
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -1275,7 +1296,29 @@
                 "operationId": "verzoekcontactmoment_delete",
                 "summary": "Verwijder een VERZOEK-CONTACTMOMENT relatie.",
                 "description": "Verwijder een VERZOEK-CONTACTMOMENT relatie.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "No content",
@@ -1597,6 +1640,27 @@
                         "schema": {
                             "$ref": "#/definitions/Verzoek"
                         }
+                    },
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -1954,6 +2018,27 @@
                         "schema": {
                             "$ref": "#/definitions/Verzoek"
                         }
+                    },
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -2135,6 +2220,27 @@
                         "schema": {
                             "$ref": "#/definitions/Verzoek"
                         }
+                    },
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -2308,7 +2414,29 @@
                 "operationId": "verzoek_delete",
                 "summary": "Verwijder een VERZOEK.",
                 "description": "Verwijder een VERZOEK.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "No content",
@@ -2467,6 +2595,365 @@
                     "required": true,
                     "type": "string",
                     "format": "uuid"
+                }
+            ]
+        },
+        "/verzoeken/{verzoek_uuid}/audittrail": {
+            "get": {
+                "operationId": "audittrail_list",
+                "summary": "Alle audit trail regels behorend bij het VERZOEK.",
+                "description": "Alle audit trail regels behorend bij het VERZOEK.",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/AuditTrail"
+                            }
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not acceptable",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Gone",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "Too many requests",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "verzoeken"
+                ],
+                "security": [
+                    {
+                        "JWT-Claims": [
+                            "audittrails.lezen"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "verzoek_uuid",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unieke resource identifier (UUID4)"
+                }
+            ]
+        },
+        "/verzoeken/{verzoek_uuid}/audittrail/{uuid}": {
+            "get": {
+                "operationId": "audittrail_read",
+                "summary": "Een specifieke audit trail regel opvragen.",
+                "description": "Een specifieke audit trail regel opvragen.",
+                "parameters": [
+                    {
+                        "name": "If-None-Match",
+                        "in": "header",
+                        "description": "Voer een voorwaardelijk verzoek uit. Deze header moet \u00e9\u00e9n of meerdere ETag-waardes bevatten van resources die de consumer gecached heeft. Indien de waarde van de ETag van de huidige resource voorkomt in deze set, dan antwoord de provider met een lege HTTP 304 request. Zie [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) voor meer informatie.",
+                        "required": false,
+                        "type": "string",
+                        "examples": {
+                            "oneValue": {
+                                "summary": "E\u00e9n ETag-waarde",
+                                "value": "\"79054025255fb1a26e4bc422aef54eb4\""
+                            },
+                            "multipleValues": {
+                                "summary": "Meerdere ETag-waardes",
+                                "value": "\"79054025255fb1a26e4bc422aef54eb4\", \"e4d909c290d0fb1ca068ffaddf22cbd0\""
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/AuditTrail"
+                        },
+                        "headers": {
+                            "ETag": {
+                                "description": "De ETag berekend op de response body JSON. Indien twee resources exact dezelfde ETag hebben, dan zijn deze resources identiek aan elkaar. Je kan de ETag gebruiken om caching te implementeren.",
+                                "type": "string"
+                            },
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not acceptable",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Gone",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "Too many requests",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/Fout"
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "verzoeken"
+                ],
+                "security": [
+                    {
+                        "JWT-Claims": [
+                            "audittrails.lezen"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "uuid",
+                    "in": "path",
+                    "description": "Unieke identificatie van de audit regel.",
+                    "required": true,
+                    "type": "string",
+                    "format": "uuid"
+                },
+                {
+                    "name": "verzoek_uuid",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unieke resource identifier (UUID4)"
                 }
             ]
         },
@@ -2661,6 +3148,27 @@
                         "schema": {
                             "$ref": "#/definitions/VerzoekInformatieObject"
                         }
+                    },
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -3010,7 +3518,29 @@
                 "operationId": "verzoekinformatieobject_delete",
                 "summary": "Verwijder een VERZOEK-INFORMATIEOBJECT relatie.",
                 "description": "Verwijder een VERZOEK-INFORMATIEOBJECT relatie.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "No content",
@@ -3370,6 +3900,27 @@
                         "schema": {
                             "$ref": "#/definitions/VerzoekProduct"
                         }
+                    },
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -3719,7 +4270,29 @@
                 "operationId": "verzoekproduct_delete",
                 "summary": "Verwijder een VERZOEK-PRODUCT relatie.",
                 "description": "Verwijder een VERZOEK-PRODUCT relatie.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "X-NLX-Request-Application-Id",
+                        "in": "header",
+                        "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-NLX-Request-User-Id",
+                        "in": "header",
+                        "description": "Identificatie van de gebruiker die het verzoek stuurt (indien NLX wordt gebruikt).",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Audit-Toelichting",
+                        "in": "header",
+                        "description": "Toelichting waarom een bepaald verzoek wordt gedaan",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "No content",
@@ -4153,6 +4726,152 @@
                         "afgewezen",
                         "ingetrokken"
                     ]
+                }
+            }
+        },
+        "Wijzigingen": {
+            "title": "Wijzigingen",
+            "type": "object",
+            "properties": {
+                "oud": {
+                    "title": "Oud",
+                    "description": "Volledige JSON body van het object zoals dat bestond voordat de actie heeft plaatsgevonden.",
+                    "type": "object"
+                },
+                "nieuw": {
+                    "title": "Nieuw",
+                    "description": "Volledige JSON body van het object na de actie.",
+                    "type": "object"
+                }
+            }
+        },
+        "AuditTrail": {
+            "required": [
+                "bron",
+                "actie",
+                "resultaat",
+                "hoofdObject",
+                "resource",
+                "resourceUrl",
+                "resourceWeergave",
+                "wijzigingen"
+            ],
+            "type": "object",
+            "properties": {
+                "uuid": {
+                    "title": "Uuid",
+                    "description": "Unieke identificatie van de audit regel.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "bron": {
+                    "title": "Bron",
+                    "description": "De naam van het component waar de wijziging in is gedaan.\n\nUitleg bij mogelijke waarden:\n\n* `ac` - Autorisatiecomponent\n* `nrc` - Notificatierouteringcomponent\n* `zrc` - Zaakregistratiecomponent\n* `ztc` - Zaaktypecatalogus\n* `drc` - Documentregistratiecomponent\n* `brc` - Besluitregistratiecomponent\n* `kic` - Klantinteractiescomponent",
+                    "type": "string",
+                    "enum": [
+                        "ac",
+                        "nrc",
+                        "zrc",
+                        "ztc",
+                        "drc",
+                        "brc",
+                        "kic"
+                    ]
+                },
+                "requestId": {
+                    "title": "Request id",
+                    "description": "Een globaal \"request\" ID om een verzoek door het netwerk heen te traceren.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "applicatieId": {
+                    "title": "Applicatie id",
+                    "description": "Unieke identificatie van de applicatie, binnen de organisatie.",
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "applicatieWeergave": {
+                    "title": "Applicatie weergave",
+                    "description": "Vriendelijke naam van de applicatie.",
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "gebruikersId": {
+                    "title": "Gebruikers id",
+                    "description": "Unieke identificatie van de gebruiker die binnen de organisatie herleid kan worden naar een persoon.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "gebruikersWeergave": {
+                    "title": "Gebruikers weergave",
+                    "description": "Vriendelijke naam van de gebruiker.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "actie": {
+                    "title": "Actie",
+                    "description": "De uitgevoerde handeling.\n\nDe bekende waardes voor dit veld zijn hieronder aangegeven,                         maar andere waardes zijn ook toegestaan\n\nUitleg bij mogelijke waarden:\n\n* `create` - Object aangemaakt\n* `list` - Lijst van objecten opgehaald\n* `retrieve` - Object opgehaald\n* `destroy` - Object verwijderd\n* `update` - Object bijgewerkt\n* `partial_update` - Object deels bijgewerkt",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 1
+                },
+                "actieWeergave": {
+                    "title": "Actie weergave",
+                    "description": "Vriendelijke naam van de actie.",
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "resultaat": {
+                    "title": "Resultaat",
+                    "description": "HTTP status code van de API response van de uitgevoerde handeling.",
+                    "type": "integer",
+                    "maximum": 599,
+                    "minimum": 100
+                },
+                "hoofdObject": {
+                    "title": "Hoofd object",
+                    "description": "De URL naar het hoofdobject van een component.",
+                    "type": "string",
+                    "format": "uri",
+                    "maxLength": 1000,
+                    "minLength": 1
+                },
+                "resource": {
+                    "title": "Resource",
+                    "description": "Het type resource waarop de actie gebeurde.",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 1
+                },
+                "resourceUrl": {
+                    "title": "Resource url",
+                    "description": "De URL naar het object.",
+                    "type": "string",
+                    "format": "uri",
+                    "maxLength": 1000,
+                    "minLength": 1
+                },
+                "toelichting": {
+                    "title": "Toelichting",
+                    "description": "Toelichting waarom de handeling is uitgevoerd.",
+                    "type": "string"
+                },
+                "resourceWeergave": {
+                    "title": "Resource weergave",
+                    "description": "Vriendelijke identificatie van het object.",
+                    "type": "string",
+                    "maxLength": 200,
+                    "minLength": 1
+                },
+                "aanmaakdatum": {
+                    "title": "Aanmaakdatum",
+                    "description": "De datum waarop de handeling is gedaan.",
+                    "type": "string",
+                    "format": "date-time",
+                    "readOnly": true
+                },
+                "wijzigingen": {
+                    "$ref": "#/definitions/Wijzigingen"
                 }
             }
         },

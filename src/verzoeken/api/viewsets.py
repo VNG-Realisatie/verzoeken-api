@@ -11,6 +11,11 @@ from vng_api_common.audittrails.viewsets import (
     AuditTrailViewSet,
     AuditTrailViewsetMixin,
 )
+from vng_api_common.notifications.viewsets import (
+    NotificationCreateMixin,
+    NotificationDestroyMixin,
+    NotificationViewSetMixin,
+)
 from vng_api_common.permissions import AuthScopesRequired
 from vng_api_common.viewsets import CheckQueryParamsMixin
 
@@ -29,6 +34,7 @@ from .filters import (
     VerzoekInformatieObjectFilter,
     VerzoekProductFilter,
 )
+from .kanalen import KANAAL_VERZOEKEN
 from .scopes import (
     SCOPE_VERZOEKEN_AANMAKEN,
     SCOPE_VERZOEKEN_ALLES_LEZEN,
@@ -47,7 +53,9 @@ from .validators import ObjectVerzoekDestroyValidator
 logger = logging.getLogger(__name__)
 
 
-class VerzoekViewSet(AuditTrailViewsetMixin, viewsets.ModelViewSet):
+class VerzoekViewSet(
+    NotificationViewSetMixin, AuditTrailViewsetMixin, viewsets.ModelViewSet
+):
     """
     Opvragen en bewerken van VERZOEKen.
 
@@ -94,6 +102,7 @@ class VerzoekViewSet(AuditTrailViewsetMixin, viewsets.ModelViewSet):
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
         "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
     }
+    notifications_kanaal = KANAAL_VERZOEKEN
     audit = AUDIT_VERZOEKEN
 
 
@@ -167,6 +176,8 @@ class ObjectVerzoekViewSet(
 
 
 class VerzoekInformatieObjectViewSet(
+    NotificationCreateMixin,
+    NotificationDestroyMixin,
     AuditTrailCreateMixin,
     AuditTrailDestroyMixin,
     CheckQueryParamsMixin,
@@ -239,6 +250,7 @@ class VerzoekInformatieObjectViewSet(
         "update": SCOPE_VERZOEKEN_BIJWERKEN,
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
+    notifications_kanaal = KANAAL_VERZOEKEN
     audit = AUDIT_VERZOEKEN
 
     def get_queryset(self):
@@ -255,6 +267,8 @@ class VerzoekInformatieObjectViewSet(
 
 
 class VerzoekContactMomentViewSet(
+    NotificationCreateMixin,
+    NotificationDestroyMixin,
     AuditTrailCreateMixin,
     AuditTrailDestroyMixin,
     CheckQueryParamsMixin,
@@ -323,10 +337,13 @@ class VerzoekContactMomentViewSet(
         "update": SCOPE_VERZOEKEN_BIJWERKEN,
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
+    notifications_kanaal = KANAAL_VERZOEKEN
     audit = AUDIT_VERZOEKEN
 
 
 class VerzoekProductViewSet(
+    NotificationCreateMixin,
+    NotificationDestroyMixin,
     AuditTrailCreateMixin,
     AuditTrailDestroyMixin,
     CheckQueryParamsMixin,
@@ -376,6 +393,7 @@ class VerzoekProductViewSet(
         "update": SCOPE_VERZOEKEN_BIJWERKEN,
         "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
     }
+    notifications_kanaal = KANAAL_VERZOEKEN
     audit = AUDIT_VERZOEKEN
 
 

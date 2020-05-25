@@ -53,6 +53,50 @@ Uitleg bij mogelijke waarden:
 * `afgewezen` - (Afgewezen) Het verzoek is afgewezen zonder vervolg acties.
 * `ingetrokken` - (Ingetrokken) De indiener heeft het verzoek ingetrokken. | string | ja | C​R​U​D |
 
+## AuditTrail
+
+Objecttype op [GEMMA Online](https://www.gemmaonline.nl/index.php/Rgbz_1.0/doc/objecttype/audittrail)
+
+| Attribuut | Omschrijving | Type | Verplicht | CRUD* |
+| --- | --- | --- | --- | --- |
+| uuid | Unieke identificatie van de audit regel. | string | nee | C​R​U​D |
+| bron | De naam van het component waar de wijziging in is gedaan.
+
+Uitleg bij mogelijke waarden:
+
+* `ac` - Autorisatiecomponent
+* `nrc` - Notificatierouteringcomponent
+* `zrc` - Zaakregistratiecomponent
+* `ztc` - Zaaktypecatalogus
+* `drc` - Documentregistratiecomponent
+* `brc` - Besluitregistratiecomponent
+* `kic` - Klantinteractiescomponent | string | ja | C​R​U​D |
+| requestId | Een globaal &quot;request&quot; ID om een verzoek door het netwerk heen te traceren. | string | nee | C​R​U​D |
+| applicatieId | Unieke identificatie van de applicatie, binnen de organisatie. | string | nee | C​R​U​D |
+| applicatieWeergave | Vriendelijke naam van de applicatie. | string | nee | C​R​U​D |
+| gebruikersId | Unieke identificatie van de gebruiker die binnen de organisatie herleid kan worden naar een persoon. | string | nee | C​R​U​D |
+| gebruikersWeergave | Vriendelijke naam van de gebruiker. | string | nee | C​R​U​D |
+| actie | De uitgevoerde handeling.
+
+De bekende waardes voor dit veld zijn hieronder aangegeven,                         maar andere waardes zijn ook toegestaan
+
+Uitleg bij mogelijke waarden:
+
+* `create` - Object aangemaakt
+* `list` - Lijst van objecten opgehaald
+* `retrieve` - Object opgehaald
+* `destroy` - Object verwijderd
+* `update` - Object bijgewerkt
+* `partial_update` - Object deels bijgewerkt | string | ja | C​R​U​D |
+| actieWeergave | Vriendelijke naam van de actie. | string | nee | C​R​U​D |
+| resultaat | HTTP status code van de API response van de uitgevoerde handeling. | integer | ja | C​R​U​D |
+| hoofdObject | De URL naar het hoofdobject van een component. | string | ja | C​R​U​D |
+| resource | Het type resource waarop de actie gebeurde. | string | ja | C​R​U​D |
+| resourceUrl | De URL naar het object. | string | ja | C​R​U​D |
+| toelichting | Toelichting waarom de handeling is uitgevoerd. | string | nee | C​R​U​D |
+| resourceWeergave | Vriendelijke identificatie van het object. | string | ja | C​R​U​D |
+| aanmaakdatum | De datum waarop de handeling is gedaan. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
+
 ## VerzoekInformatieObject
 
 Objecttype op [GEMMA Online](https://www.gemmaonline.nl/index.php/Rgbz_1.0/doc/objecttype/verzoekinformatieobject)

@@ -302,3 +302,6 @@ if SENTRY_DSN:
     )
 
 IS_HTTPS = os.getenv("IS_HTTPS", "1").lower() in ["true", "1", "yes"]
+
+# settings for sending notifications
+NOTIFICATIONS_KANAAL = "verzoeken"

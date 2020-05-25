@@ -1,8 +1,11 @@
 from django.conf import settings
 
 from drf_yasg import openapi
+from vng_api_common.notifications.utils import notification_documentation
 
-description = """Een API voor het registreren, bewerken en opvragen van verzoeken.
+from .kanalen import KANAAL_VERZOEKEN
+
+description = f"""Een API voor het registreren, bewerken en opvragen van verzoeken.
 
 **Afhankelijkheden**
 
@@ -19,6 +22,10 @@ Deze API is afhankelijk van:
 Deze API vereist autorisatie. Je kan de
 [token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te
 genereren.
+
+** Notificaties
+
+{notification_documentation(KANAAL_VERZOEKEN)}
 
 **Handige links**
 
