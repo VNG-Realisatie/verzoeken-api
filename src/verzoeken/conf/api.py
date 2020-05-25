@@ -1,5 +1,7 @@
 from vng_api_common.conf.api import *  # noqa - imports white-listed
 
+API_VERSION = "1.0.0-beta"
+
 REST_FRAMEWORK = BASE_REST_FRAMEWORK.copy()
 
 SECURITY_DEFINITION_NAME = "JWT-Claims"
