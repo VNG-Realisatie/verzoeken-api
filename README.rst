@@ -1,6 +1,6 @@
-========================
-Klantcontactcomponent
-========================
+=============
+Verzoeken API
+=============
 
 :Version: 0.1.0
 :Source: https://github.com/VNG-Realisatie/verzoeken-api
