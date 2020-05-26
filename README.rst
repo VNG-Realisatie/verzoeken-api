@@ -14,11 +14,7 @@ Referentieimplementatie van de Verzoeken API.
 Inleiding
 =========
 
-Binnen het Nederlandse gemeentelandschap wordt zaakgericht werken nagestreefd.
-Om dit mogelijk te maken is er gegevensuitwisseling nodig. De kerngegevens van
-zaken moeten ergens geregistreerd worden en opvraagbaar zijn.
-
-Deze referentieimplementatie toont aan dat de API specificatie voor verzoeken 
+Deze referentieimplementatie toont aan dat de API specificatie voor Verzoeken 
 implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien 
 ergens twijfel bestaat.
 
