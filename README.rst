@@ -9,7 +9,7 @@ Klantcontactcomponent
 
  |black|
 
-Referentieimplementatie van de verzoeken.
+Referentieimplementatie van de Verzoeken API.
 
 Inleiding
 =========
@@ -18,9 +18,9 @@ Binnen het Nederlandse gemeentelandschap wordt zaakgericht werken nagestreefd.
 Om dit mogelijk te maken is er gegevensuitwisseling nodig. De kerngegevens van
 zaken moeten ergens geregistreerd worden en opvraagbaar zijn.
 
-Deze referentieimplementatie toont aan dat de API specificatie voor de
-verzoeken implementeerbaar is, en vormt een
-voorbeeld voor andere implementaties indien ergens twijfel bestaat.
+Deze referentieimplementatie toont aan dat de API specificatie voor verzoeken 
+implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien 
+ergens twijfel bestaat.
 
 Documentatie
 ============
@@ -35,7 +35,7 @@ raden we aan om net wel van Docker gebruik te maken.
 Licentie
 ========
 
-Copyright © VNG Realisatie 2019
+Copyright © VNG Realisatie 2020
 
 Licensed under the EUPL_
 
