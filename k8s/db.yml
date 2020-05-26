@@ -1,0 +1,55 @@
+---
+
+# Deployment
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: postgres-kcc
+  namespace: gemma
+  labels:
+    k8s-app: postgres-kcc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: postgres-kcc
+  template:
+    metadata:
+      name: postgres-kcc
+      labels:
+        k8s-app: postgres-kcc
+    spec:
+      volumes:
+      - name: data
+        hostPath:
+          path: "/storage/gemma-postgres-kcc"
+          type: ''
+      containers:
+      - name: postgres
+        image: postgres:11
+        env:
+          - name: POSTGRES_PASSWORD
+            value: <REDACTED>
+        volumeMounts:
+          - name: data
+            mountPath: "/var/lib/postgresql/data"
+
+---
+
+# Service
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-kcc
+  namespace: gemma
+  labels:
+    k8s-app: postgres-kcc
+spec:
+  selector:
+    k8s-app: postgres-kcc
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
