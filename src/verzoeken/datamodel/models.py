@@ -90,7 +90,9 @@ class Verzoek(APIMixin, models.Model):
 
     def save(self, *args, **kwargs):
         if not self.identificatie:
-            self.identificatie = generate_unique_identification(self, "interactiedatum")
+            self.identificatie = generate_unique_identification(
+                self, "registratiedatum"
+            )
 
         super().save(*args, **kwargs)
 
@@ -245,3 +247,12 @@ class KlantVerzoek(models.Model):
         choices=IndicatieMachtiging.choices,
         help_text="Indicatie machtiging",
     )
+
+    class Meta:
+        verbose_name = "klantverzoek"
+        verbose_name_plural = "klantverzoeken"
+        unique_together = ("verzoek", "klant")
+
+    def unique_representation(self):
+        klant_id = self.klant.rstrip("/").split("/")[-1]
+        return f"({self.verzoek.unique_representation()}) - {klant_id}"
