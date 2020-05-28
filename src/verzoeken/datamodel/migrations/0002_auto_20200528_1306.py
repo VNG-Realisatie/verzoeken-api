@@ -13,7 +13,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="verzoek", name="interactiedatum",),
+        migrations.RenameField(
+            model_name="verzoek",
+            old_name="interactiedatum",
+            new_name="registratiedatum",
+        ),
         migrations.AddField(
             model_name="verzoek",
             name="aangevulde_verzoek",
@@ -36,14 +40,6 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="intrekkende_verzoek",
                 to="datamodel.Verzoek",
-            ),
-        ),
-        migrations.AddField(
-            model_name="verzoek",
-            name="registratiedatum",
-            field=models.DateTimeField(
-                default=django.utils.timezone.now,
-                help_text="De datum en het tijdstip waarop het VERZOEK is geregistreerd.",
             ),
         ),
         migrations.AlterField(
