@@ -11,7 +11,7 @@ from .models import (
 
 @admin.register(Verzoek)
 class VerzoekAdmin(admin.ModelAdmin):
-    list_display = ["bronorganisatie", "klant", "identificatie", "status"]
+    list_display = ["bronorganisatie", "identificatie", "status"]
 
 
 @admin.register(ObjectVerzoek)

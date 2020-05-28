@@ -13,7 +13,7 @@ from vng_api_common.utils import (
 )
 from vng_api_common.validators import alphanumeric_excluding_diacritic
 
-from .constants import ObjectTypes, VerzoekStatus
+from .constants import IndicatieMachtiging, KlantRol, ObjectTypes, VerzoekStatus
 
 
 class Verzoek(APIMixin, models.Model):
@@ -30,28 +30,21 @@ class Verzoek(APIMixin, models.Model):
         "geldig RSIN zijn van 9 nummers en voldoen aan "
         "https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef"
     )
-    klant = models.URLField(
-        max_length=1000,
-        blank=True,
-        help_text=_("URL-referentie naar een KLANT (in Klanten API)"),
-    )
-    interactiedatum = models.DateTimeField(
+    registratiedatum = models.DateTimeField(
         default=timezone.now,
-        help_text=_(
-            "De datum en het tijdstip waarop de klantinteractie heeft plaatsgevonden."
-        ),
+        help_text=_("De datum en het tijdstip waarop het VERZOEK is geregistreerd."),
     )
     tekst = models.TextField(
         blank=True,
         help_text=_(
-            "Een toelichting die inhoudelijk de klantinteractie van de klant beschrijft."
+            "Een toelichting die inhoudelijk het VERZOEK van de KLANT beschrijft."
         ),
     )
     voorkeurskanaal = models.CharField(
         max_length=50,
         blank=True,
         help_text=_(
-            "Het communicatiekanaal dat voor opvolging van de klantinteractie de voorkeur heeft van de KLANT."
+            "Het communicatiekanaal dat voor opvolging van het VERZOEK de voorkeur heeft van de KLANT."
         ),
     )
     identificatie = models.CharField(
@@ -72,6 +65,22 @@ class Verzoek(APIMixin, models.Model):
         max_length=20,
         choices=VerzoekStatus,
         help_text="De waarden van de typering van de voortgang van afhandeling van een VERZOEK.",
+    )
+    in_te_trekken_verzoek = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="intrekkende_verzoek",
+        help_text="URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt verzocht ingetrokken te worden.",
+    )
+    aangevulde_verzoek = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="aanvullende_verzoek",
+        help_text="URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt aangevuld.",
     )
 
     class Meta:
@@ -94,7 +103,8 @@ class ObjectVerzoek(APIMixin, models.Model):
         unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
     )
     object = models.URLField(
-        help_text="URL-referentie naar het gerelateerde OBJECT (in een andere API)."
+        max_length=1000,
+        help_text="URL-referentie naar het gerelateerde OBJECT (in een andere API).",
     )
     object_type = models.CharField(
         "objecttype",
@@ -125,6 +135,7 @@ class VerzoekProduct(APIMixin, models.Model):
     )
     product = models.URLField(
         blank=True,
+        max_length=1000,
         help_text="URL-referentie naar het PRODUCT (in de Producten en Diensten API).",
     )
     product_code = models.CharField(
@@ -208,3 +219,29 @@ class VerzoekContactMoment(models.Model):
     def unique_representation(self):
         contactmoment_id = self.contactmoment.rstrip("/").split("/")[-1]
         return f"({self.verzoek.unique_representation()}) - {contactmoment_id}"
+
+
+class KlantVerzoek(models.Model):
+    uuid = models.UUIDField(
+        unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
+    )
+    verzoek = models.ForeignKey(
+        "datamodel.Verzoek",
+        on_delete=models.CASCADE,
+        help_text="URL-referentie naar het VERZOEK.",
+    )
+    klant = models.URLField(
+        max_length=1000, help_text=_("URL-referentie naar een KLANT (in Klanten API)"),
+    )
+    rol = models.CharField(
+        max_length=100,
+        blank=True,
+        choices=KlantRol.choices,
+        help_text="Rol van de KLANT bij het VERZOEK.",
+    )
+    indicatie_machtiging = models.CharField(
+        max_length=100,
+        blank=True,
+        choices=IndicatieMachtiging.choices,
+        help_text="Indicatie machtiging",
+    )
