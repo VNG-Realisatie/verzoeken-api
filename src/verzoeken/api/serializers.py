@@ -218,9 +218,6 @@ class KlantVerzoekSerializer(serializers.HyperlinkedModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        rol_display_mapping = add_choice_values_help_text(KlantRol)
-        self.fields["rol"].help_text += f"\n\n{rol_display_mapping}"
-
         indicatie_machtiging_display_mapping = add_choice_values_help_text(
             IndicatieMachtiging
         )

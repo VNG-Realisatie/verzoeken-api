@@ -5232,12 +5232,12 @@
                 },
                 "rol": {
                     "title": "Rol",
-                    "description": "Rol van de KLANT bij het VERZOEK.\n\nUitleg bij mogelijke waarden:\n\n* `belanghebbende` - Belanghebbende\n* `initiator` - Initiator\n* `mede_initiator` - Mede-initiator",
+                    "description": "Rol van de KLANT bij het VERZOEK.",
                     "type": "string",
                     "enum": [
                         "belanghebbende",
                         "initiator",
-                        "mede_initiator"
+                        "mede-initiator"
                     ]
                 },
                 "indicatieMachtiging": {

@@ -4475,22 +4475,12 @@ components:
           format: uri
         rol:
           title: Rol
-          description: 'Rol van de KLANT bij het VERZOEK.
-
-
-            Uitleg bij mogelijke waarden:
-
-
-            * `belanghebbende` - Belanghebbende
-
-            * `initiator` - Initiator
-
-            * `mede_initiator` - Mede-initiator'
+          description: Rol van de KLANT bij het VERZOEK.
           type: string
           enum:
           - belanghebbende
           - initiator
-          - mede_initiator
+          - mede-initiator
         indicatieMachtiging:
           title: Indicatie machtiging
           description: 'Indicatie machtiging
