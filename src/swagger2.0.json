@@ -2233,6 +2233,12 @@
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Verzoek"
+                            }
+                        },
                         "headers": {
                             "API-version": {
                                 "schema": {
@@ -2372,6 +2378,14 @@
                 "description": "Maak een VERZOEK aan.",
                 "parameters": [
                     {
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Verzoek"
+                        }
+                    },
+                    {
                         "name": "X-NLX-Request-Application-Id",
                         "in": "header",
                         "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
@@ -2396,6 +2410,9 @@
                 "responses": {
                     "201": {
                         "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/Verzoek"
+                        },
                         "headers": {
                             "API-version": {
                                 "schema": {
@@ -2579,6 +2596,9 @@
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Verzoek"
+                        },
                         "headers": {
                             "ETag": {
                                 "description": "De ETag berekend op de response body JSON. Indien twee resources exact dezelfde ETag hebben, dan zijn deze resources identiek aan elkaar. Je kan de ETag gebruiken om caching te implementeren.",
@@ -2736,6 +2756,14 @@
                 "description": "Werk een VERZOEK in zijn geheel bij.",
                 "parameters": [
                     {
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Verzoek"
+                        }
+                    },
+                    {
                         "name": "X-NLX-Request-Application-Id",
                         "in": "header",
                         "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
@@ -2760,6 +2788,9 @@
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Verzoek"
+                        },
                         "headers": {
                             "API-version": {
                                 "schema": {
@@ -2927,6 +2958,14 @@
                 "description": "Werk een VERZOEK deels bij.",
                 "parameters": [
                     {
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Verzoek"
+                        }
+                    },
+                    {
                         "name": "X-NLX-Request-Application-Id",
                         "in": "header",
                         "description": "Identificatie van de applicatie die het verzoek stuurt (indien NLX wordt gebruikt).",
@@ -2951,6 +2990,9 @@
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Verzoek"
+                        },
                         "headers": {
                             "API-version": {
                                 "schema": {
@@ -5406,6 +5448,98 @@
                     "description": "URL-referentie naar het VERZOEK.",
                     "type": "string",
                     "format": "uri"
+                }
+            }
+        },
+        "Verzoek": {
+            "required": [
+                "bronorganisatie",
+                "status"
+            ],
+            "type": "object",
+            "properties": {
+                "url": {
+                    "title": "Url",
+                    "description": "URL-referentie naar dit object. Dit is de unieke identificatie en locatie van dit object.",
+                    "type": "string",
+                    "format": "uri",
+                    "readOnly": true,
+                    "maxLength": 1000,
+                    "minLength": 1
+                },
+                "identificatie": {
+                    "title": "Identificatie",
+                    "description": "De unieke identificatie van het VERZOEK binnen de organisatie die verantwoordelijk is voor de behandeling van het VERZOEK.",
+                    "type": "string",
+                    "maxLength": 40
+                },
+                "bronorganisatie": {
+                    "title": "Bronorganisatie",
+                    "description": "Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef",
+                    "type": "string",
+                    "maxLength": 9,
+                    "minLength": 1
+                },
+                "externeIdentificatie": {
+                    "title": "Externe identificatie",
+                    "description": "De identificatie van het VERZOEK buiten de eigen organisatie.",
+                    "type": "string",
+                    "maxLength": 40
+                },
+                "registratiedatum": {
+                    "title": "Registratiedatum",
+                    "description": "De datum en het tijdstip waarop het VERZOEK is geregistreerd.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "voorkeurskanaal": {
+                    "title": "Voorkeurskanaal",
+                    "description": "Het communicatiekanaal dat voor opvolging van het VERZOEK de voorkeur heeft van de KLANT.",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "tekst": {
+                    "title": "Tekst",
+                    "description": "Een toelichting die inhoudelijk het VERZOEK van de KLANT beschrijft.",
+                    "type": "string"
+                },
+                "status": {
+                    "title": "Status",
+                    "description": "De waarden van de typering van de voortgang van afhandeling van een VERZOEK.\n\nUitleg bij mogelijke waarden:\n\n* `ontvangen` - (Ontvangen) Het verzoek is ingediend en door de organisatie ontvangen.\n* `in_behandeling` - (In behandeling) Het is verzoek is in behandeling.\n* `afgehandeld` - (Afgehandeld) Het verzoek zelf is afgehandeld. Eventuele vervolg acties, zoals zaken die voortkomen uit het verzoek, hebben een eigen status.\n* `afgewezen` - (Afgewezen) Het verzoek is afgewezen zonder vervolg acties.\n* `ingetrokken` - (Ingetrokken) De indiener heeft het verzoek ingetrokken.",
+                    "type": "string",
+                    "enum": [
+                        "ontvangen",
+                        "in_behandeling",
+                        "afgehandeld",
+                        "afgewezen",
+                        "ingetrokken"
+                    ]
+                },
+                "inTeTrekkenVerzoek": {
+                    "title": "In te trekken verzoek",
+                    "description": "URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt verzocht ingetrokken te worden.",
+                    "type": "string",
+                    "format": "uri",
+                    "x-nullable": true
+                },
+                "intrekkendeVerzoek": {
+                    "title": "Intrekkende verzoek",
+                    "type": "string",
+                    "format": "uri",
+                    "readOnly": true
+                },
+                "aangevuldeVerzoek": {
+                    "title": "Aangevulde verzoek",
+                    "description": "URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt aangevuld.",
+                    "type": "string",
+                    "format": "uri",
+                    "x-nullable": true
+                },
+                "aanvullendeVerzoek": {
+                    "title": "Aanvullende verzoek",
+                    "type": "string",
+                    "format": "uri",
+                    "readOnly": true
                 }
             }
         },

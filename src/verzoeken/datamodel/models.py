@@ -66,7 +66,7 @@ class Verzoek(APIMixin, models.Model):
         choices=VerzoekStatus,
         help_text="De waarden van de typering van de voortgang van afhandeling van een VERZOEK.",
     )
-    in_te_trekken_verzoek = models.ForeignKey(
+    in_te_trekken_verzoek = models.OneToOneField(
         "self",
         null=True,
         blank=True,
@@ -74,7 +74,7 @@ class Verzoek(APIMixin, models.Model):
         related_name="intrekkende_verzoek",
         help_text="URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt verzocht ingetrokken te worden.",
     )
-    aangevulde_verzoek = models.ForeignKey(
+    aangevulde_verzoek = models.OneToOneField(
         "self",
         null=True,
         blank=True,

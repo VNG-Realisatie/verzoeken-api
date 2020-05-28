@@ -44,15 +44,22 @@ class VerzoekSerializer(serializers.HyperlinkedModelSerializer):
             "identificatie",
             "bronorganisatie",
             "externe_identificatie",
-            "klant",
             "registratiedatum",
             "voorkeurskanaal",
             "tekst",
             "status",
+            "in_te_trekken_verzoek",
+            "intrekkende_verzoek",
+            "aangevulde_verzoek",
+            "aanvullende_verzoek",
         )
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
             "identificatie": {"validators": [IsImmutableValidator()]},
+            "in_te_trekken_verzoek": {"lookup_field": "uuid"},
+            "intrekkende_verzoek": {"lookup_field": "uuid", "read_only": True,},
+            "aangevulde_verzoek": {"lookup_field": "uuid"},
+            "aanvullende_verzoek": {"lookup_field": "uuid", "read_only": True,},
         }
         # Replace a default "unique together" constraint.
         validators = [UniekeIdentificatieValidator("bronorganisatie", "identificatie")]

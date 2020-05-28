@@ -1940,6 +1940,12 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Verzoek'
         '401':
           description: Unauthorized
           headers:
@@ -2066,6 +2072,8 @@ paths:
         required: false
         schema:
           type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Verzoek'
       responses:
         '201':
           description: Created
@@ -2080,6 +2088,10 @@ paths:
                 type: string
                 format: uri
               description: URL waar de resource leeft.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Verzoek'
         '400':
           description: Bad request
           headers:
@@ -2233,6 +2245,10 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Verzoek'
         '401':
           description: Unauthorized
           headers:
@@ -2371,6 +2387,8 @@ paths:
         required: false
         schema:
           type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Verzoek'
       responses:
         '200':
           description: OK
@@ -2380,6 +2398,10 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Verzoek'
         '400':
           description: Bad request
           headers:
@@ -2530,6 +2552,8 @@ paths:
         required: false
         schema:
           type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Verzoek'
       responses:
         '200':
           description: OK
@@ -2539,6 +2563,10 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Verzoek'
         '400':
           description: Bad request
           headers:
@@ -4405,6 +4433,13 @@ tags:
 servers:
 - url: /api/v1
 components:
+  requestBodies:
+    Verzoek:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Verzoek'
+      required: true
   securitySchemes:
     JWT-Claims:
       type: http
@@ -4644,6 +4679,107 @@ components:
           description: URL-referentie naar het VERZOEK.
           type: string
           format: uri
+    Verzoek:
+      required:
+      - bronorganisatie
+      - status
+      type: object
+      properties:
+        url:
+          title: Url
+          description: URL-referentie naar dit object. Dit is de unieke identificatie
+            en locatie van dit object.
+          type: string
+          format: uri
+          readOnly: true
+          maxLength: 1000
+          minLength: 1
+        identificatie:
+          title: Identificatie
+          description: De unieke identificatie van het VERZOEK binnen de organisatie
+            die verantwoordelijk is voor de behandeling van het VERZOEK.
+          type: string
+          maxLength: 40
+        bronorganisatie:
+          title: Bronorganisatie
+          description: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie
+            die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn
+            van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef
+          type: string
+          maxLength: 9
+          minLength: 1
+        externeIdentificatie:
+          title: Externe identificatie
+          description: De identificatie van het VERZOEK buiten de eigen organisatie.
+          type: string
+          maxLength: 40
+        registratiedatum:
+          title: Registratiedatum
+          description: De datum en het tijdstip waarop het VERZOEK is geregistreerd.
+          type: string
+          format: date-time
+        voorkeurskanaal:
+          title: Voorkeurskanaal
+          description: Het communicatiekanaal dat voor opvolging van het VERZOEK de
+            voorkeur heeft van de KLANT.
+          type: string
+          maxLength: 50
+        tekst:
+          title: Tekst
+          description: Een toelichting die inhoudelijk het VERZOEK van de KLANT beschrijft.
+          type: string
+        status:
+          title: Status
+          description: 'De waarden van de typering van de voortgang van afhandeling
+            van een VERZOEK.
+
+
+            Uitleg bij mogelijke waarden:
+
+
+            * `ontvangen` - (Ontvangen) Het verzoek is ingediend en door de organisatie
+            ontvangen.
+
+            * `in_behandeling` - (In behandeling) Het is verzoek is in behandeling.
+
+            * `afgehandeld` - (Afgehandeld) Het verzoek zelf is afgehandeld. Eventuele
+            vervolg acties, zoals zaken die voortkomen uit het verzoek, hebben een
+            eigen status.
+
+            * `afgewezen` - (Afgewezen) Het verzoek is afgewezen zonder vervolg acties.
+
+            * `ingetrokken` - (Ingetrokken) De indiener heeft het verzoek ingetrokken.'
+          type: string
+          enum:
+          - ontvangen
+          - in_behandeling
+          - afgehandeld
+          - afgewezen
+          - ingetrokken
+        inTeTrekkenVerzoek:
+          title: In te trekken verzoek
+          description: URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK
+            wordt verzocht ingetrokken te worden.
+          type: string
+          format: uri
+          nullable: true
+        intrekkendeVerzoek:
+          title: Intrekkende verzoek
+          type: string
+          format: uri
+          readOnly: true
+        aangevuldeVerzoek:
+          title: Aangevulde verzoek
+          description: URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK
+            wordt aangevuld.
+          type: string
+          format: uri
+          nullable: true
+        aanvullendeVerzoek:
+          title: Aanvullende verzoek
+          type: string
+          format: uri
+          readOnly: true
     Wijzigingen:
       title: Wijzigingen
       type: object
