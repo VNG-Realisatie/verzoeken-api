@@ -4480,7 +4480,7 @@ components:
           enum:
           - belanghebbende
           - initiator
-          - mede-initiator
+          - mede_initiator
         indicatieMachtiging:
           title: Indicatie machtiging
           description: 'Indicatie machtiging

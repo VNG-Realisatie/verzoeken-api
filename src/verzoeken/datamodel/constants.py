@@ -41,7 +41,7 @@ class VerzoekStatus(DjangoChoices):
 class KlantRol(DjangoChoices):
     belanghebbende = ChoiceItem("belanghebbende", _("Belanghebbende"))
     initiator = ChoiceItem("initiator", _("Initiator"))
-    mede_initiator = ChoiceItem("mede-initiator", _("Mede-initiator"))
+    mede_initiator = ChoiceItem("mede_initiator", _("Mede-initiator"))
 
 
 class IndicatieMachtiging(DjangoChoices):
