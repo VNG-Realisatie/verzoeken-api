@@ -13,7 +13,7 @@ Deze API is afhankelijk van:
 
 * Autorisaties API
 * Klanten API
-* Contactmomenten API (optioneel)
+* Contactmomenten API *(optioneel)*
 * Zaken API *(optioneel)*
 * Documenten API *(optioneel)*
 
