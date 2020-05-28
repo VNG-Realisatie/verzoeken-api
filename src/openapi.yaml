@@ -14,7 +14,7 @@ info:
 
     * Klanten API
 
-    * Contactmomenten API (optioneel)
+    * Contactmomenten API *(optioneel)*
 
     * Zaken API *(optioneel)*
 
@@ -75,6 +75,627 @@ info:
 security:
 - JWT-Claims: []
 paths:
+  /klantverzoeken:
+    get:
+      operationId: klantverzoek_list
+      summary: Alle KLANT-VERZOEK relaties opvragen.
+      description: Deze lijst kan gefilterd wordt met query-string parameters.
+      parameters:
+      - name: verzoek
+        in: query
+        description: URL-referentie naar het VERZOEK.
+        required: false
+        schema:
+          type: string
+          format: uri
+      - name: klant
+        in: query
+        description: URL-referentie naar een KLANT (in Klanten API)
+        required: false
+        schema:
+          type: string
+          format: uri
+      responses:
+        '200':
+          description: OK
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KlantVerzoek'
+        '400':
+          description: Bad request
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidatieFout'
+        '401':
+          description: Unauthorized
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '403':
+          description: Forbidden
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '406':
+          description: Not acceptable
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '409':
+          description: Conflict
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '410':
+          description: Gone
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '415':
+          description: Unsupported media type
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '429':
+          description: Too many requests
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '500':
+          description: Internal server error
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+      tags:
+      - klantverzoeken
+      security:
+      - JWT-Claims:
+        - verzoeken.lezen
+    post:
+      operationId: klantverzoek_create
+      description: Maak een KLANT-VERZOEK relatie aan.
+      parameters:
+      - name: X-NLX-Request-Application-Id
+        in: header
+        description: Identificatie van de applicatie die het verzoek stuurt (indien
+          NLX wordt gebruikt).
+        required: false
+        schema:
+          type: string
+      - name: X-NLX-Request-User-Id
+        in: header
+        description: Identificatie van de gebruiker die het verzoek stuurt (indien
+          NLX wordt gebruikt).
+        required: false
+        schema:
+          type: string
+      - name: X-Audit-Toelichting
+        in: header
+        description: Toelichting waarom een bepaald verzoek wordt gedaan
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KlantVerzoek'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: URL waar de resource leeft.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlantVerzoek'
+        '400':
+          description: Bad request
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidatieFout'
+        '401':
+          description: Unauthorized
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '403':
+          description: Forbidden
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '406':
+          description: Not acceptable
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '409':
+          description: Conflict
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '410':
+          description: Gone
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '415':
+          description: Unsupported media type
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '429':
+          description: Too many requests
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '500':
+          description: Internal server error
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+      tags:
+      - klantverzoeken
+      security:
+      - JWT-Claims:
+        - verzoeken.aanmaken
+    parameters: []
+  /klantverzoeken/{uuid}:
+    get:
+      operationId: klantverzoek_read
+      summary: Een specifieke KLANT-VERZOEK relatie opvragen.
+      description: Een specifieke KLANT-VERZOEK relatie opvragen.
+      parameters:
+      - name: If-None-Match
+        in: header
+        description: "Voer een voorwaardelijk verzoek uit. Deze header moet \xE9\xE9\
+          n of meerdere ETag-waardes bevatten van resources die de consumer gecached\
+          \ heeft. Indien de waarde van de ETag van de huidige resource voorkomt in\
+          \ deze set, dan antwoord de provider met een lege HTTP 304 request. Zie\
+          \ [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)\
+          \ voor meer informatie."
+        required: false
+        examples:
+          oneValue:
+            summary: "E\xE9n ETag-waarde"
+            value: '"79054025255fb1a26e4bc422aef54eb4"'
+          multipleValues:
+            summary: Meerdere ETag-waardes
+            value: '"79054025255fb1a26e4bc422aef54eb4", "e4d909c290d0fb1ca068ffaddf22cbd0"'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            ETag:
+              description: De ETag berekend op de response body JSON. Indien twee
+                resources exact dezelfde ETag hebben, dan zijn deze resources identiek
+                aan elkaar. Je kan de ETag gebruiken om caching te implementeren.
+              schema:
+                type: string
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlantVerzoek'
+        '401':
+          description: Unauthorized
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '403':
+          description: Forbidden
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '404':
+          description: Not found
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '406':
+          description: Not acceptable
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '409':
+          description: Conflict
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '410':
+          description: Gone
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '415':
+          description: Unsupported media type
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '429':
+          description: Too many requests
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '500':
+          description: Internal server error
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+      tags:
+      - klantverzoeken
+      security:
+      - JWT-Claims:
+        - verzoeken.lezen
+    delete:
+      operationId: klantverzoek_delete
+      summary: Verwijder een KLANT-VERZOEK relatie.
+      description: Verwijder een KLANT-VERZOEK relatie.
+      parameters:
+      - name: X-NLX-Request-Application-Id
+        in: header
+        description: Identificatie van de applicatie die het verzoek stuurt (indien
+          NLX wordt gebruikt).
+        required: false
+        schema:
+          type: string
+      - name: X-NLX-Request-User-Id
+        in: header
+        description: Identificatie van de gebruiker die het verzoek stuurt (indien
+          NLX wordt gebruikt).
+        required: false
+        schema:
+          type: string
+      - name: X-Audit-Toelichting
+        in: header
+        description: Toelichting waarom een bepaald verzoek wordt gedaan
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No content
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+        '401':
+          description: Unauthorized
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '403':
+          description: Forbidden
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '404':
+          description: Not found
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '406':
+          description: Not acceptable
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '409':
+          description: Conflict
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '410':
+          description: Gone
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '415':
+          description: Unsupported media type
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '429':
+          description: Too many requests
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+        '500':
+          description: Internal server error
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Fout'
+      tags:
+      - klantverzoeken
+      security:
+      - JWT-Claims:
+        - verzoeken.verwijderen
+    parameters:
+    - name: uuid
+      in: path
+      description: Unieke resource identifier (UUID4)
+      required: true
+      schema:
+        type: string
+        format: uuid
   /objectverzoeken:
     get:
       operationId: objectverzoek_list
@@ -1319,12 +1940,6 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Verzoek'
         '401':
           description: Unauthorized
           headers:
@@ -1451,8 +2066,6 @@ paths:
         required: false
         schema:
           type: string
-      requestBody:
-        $ref: '#/components/requestBodies/Verzoek'
       responses:
         '201':
           description: Created
@@ -1467,10 +2080,6 @@ paths:
                 type: string
                 format: uri
               description: URL waar de resource leeft.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Verzoek'
         '400':
           description: Bad request
           headers:
@@ -1624,10 +2233,6 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Verzoek'
         '401':
           description: Unauthorized
           headers:
@@ -1766,8 +2371,6 @@ paths:
         required: false
         schema:
           type: string
-      requestBody:
-        $ref: '#/components/requestBodies/Verzoek'
       responses:
         '200':
           description: OK
@@ -1777,10 +2380,6 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Verzoek'
         '400':
           description: Bad request
           headers:
@@ -1931,8 +2530,6 @@ paths:
         required: false
         schema:
           type: string
-      requestBody:
-        $ref: '#/components/requestBodies/Verzoek'
       responses:
         '200':
           description: OK
@@ -1942,10 +2539,6 @@ paths:
                 type: string
               description: 'Geeft een specifieke API-versie aan in de context van
                 een specifieke aanroep. Voorbeeld: 1.2.1.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Verzoek'
         '400':
           description: Bad request
           headers:
@@ -3794,6 +4387,8 @@ paths:
         type: string
         format: uuid
 tags:
+- name: klantverzoeken
+  description: ''
 - name: objectverzoeken
   description: 'Het betreft een relatie tussen een willekeurig OBJECT, bijvoorbeeld
     een
@@ -3810,24 +4405,16 @@ tags:
 servers:
 - url: /api/v1
 components:
-  requestBodies:
-    Verzoek:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Verzoek'
-      required: true
   securitySchemes:
     JWT-Claims:
       type: http
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    ObjectVerzoek:
+    KlantVerzoek:
       required:
+      - klant
       - verzoek
-      - object
-      - objectType
       type: object
       properties:
         url:
@@ -3839,31 +4426,53 @@ components:
           readOnly: true
           maxLength: 1000
           minLength: 1
+        klant:
+          title: Klant
+          description: URL-referentie naar een KLANT (in Klanten API)
+          type: string
+          format: uri
+          maxLength: 1000
+          minLength: 1
         verzoek:
           title: Verzoek
           description: URL-referentie naar het VERZOEK.
           type: string
           format: uri
-        object:
-          title: Object
-          description: URL-referentie naar het gerelateerde OBJECT (in een andere
-            API).
-          type: string
-          format: uri
-          maxLength: 200
-          minLength: 1
-        objectType:
-          title: Objecttype
-          description: 'Het type van het gerelateerde OBJECT.
+        rol:
+          title: Rol
+          description: 'Rol van de KLANT bij het VERZOEK.
 
 
             Uitleg bij mogelijke waarden:
 
 
-            * `zaak` - Zaak'
+            * `belanghebbende` - Belanghebbende
+
+            * `initiator` - Initiator
+
+            * `mede_initiator` - Mede-initiator'
           type: string
           enum:
-          - zaak
+          - belanghebbende
+          - initiator
+          - mede_initiator
+        indicatieMachtiging:
+          title: Indicatie machtiging
+          description: 'Indicatie machtiging
+
+
+            Uitleg bij mogelijke waarden:
+
+
+            * `gemachtigde` - (Gemachtigde) De KLANT is door een andere KLANT gemachtigd
+            om in het VERZOEK namens hem of haar te handelen.
+
+            * `machtiginggever` - (Machtiginggever) De KLANT heeft een andere KLANT
+            gemachtigd om in het VERZOEK namens hem of haar te handelen.'
+          type: string
+          enum:
+          - gemachtigde
+          - machtiginggever
     Fout:
       required:
       - code
@@ -3967,6 +4576,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FieldValidationError'
+    ObjectVerzoek:
+      required:
+      - verzoek
+      - object
+      - objectType
+      type: object
+      properties:
+        url:
+          title: Url
+          description: URL-referentie naar dit object. Dit is de unieke identificatie
+            en locatie van dit object.
+          type: string
+          format: uri
+          readOnly: true
+          maxLength: 1000
+          minLength: 1
+        verzoek:
+          title: Verzoek
+          description: URL-referentie naar het VERZOEK.
+          type: string
+          format: uri
+        object:
+          title: Object
+          description: URL-referentie naar het gerelateerde OBJECT (in een andere
+            API).
+          type: string
+          format: uri
+          maxLength: 1000
+          minLength: 1
+        objectType:
+          title: Objecttype
+          description: 'Het type van het gerelateerde OBJECT.
+
+
+            Uitleg bij mogelijke waarden:
+
+
+            * `zaak` - Zaak'
+          type: string
+          enum:
+          - zaak
     VerzoekContactMoment:
       required:
       - contactmoment
@@ -3994,90 +4644,6 @@ components:
           description: URL-referentie naar het VERZOEK.
           type: string
           format: uri
-    Verzoek:
-      required:
-      - bronorganisatie
-      - status
-      type: object
-      properties:
-        url:
-          title: Url
-          description: URL-referentie naar dit object. Dit is de unieke identificatie
-            en locatie van dit object.
-          type: string
-          format: uri
-          readOnly: true
-          maxLength: 1000
-          minLength: 1
-        identificatie:
-          title: Identificatie
-          description: De unieke identificatie van het VERZOEK binnen de organisatie
-            die verantwoordelijk is voor de behandeling van het VERZOEK.
-          type: string
-          maxLength: 40
-        bronorganisatie:
-          title: Bronorganisatie
-          description: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie
-            die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn
-            van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef
-          type: string
-          maxLength: 9
-          minLength: 1
-        externeIdentificatie:
-          title: Externe identificatie
-          description: De identificatie van het VERZOEK buiten de eigen organisatie.
-          type: string
-          maxLength: 40
-        klant:
-          title: Klant
-          description: URL-referentie naar een KLANT (in Klanten API)
-          type: string
-          format: uri
-          maxLength: 1000
-        interactiedatum:
-          title: Interactiedatum
-          description: De datum en het tijdstip waarop de klantinteractie heeft plaatsgevonden.
-          type: string
-          format: date-time
-        voorkeurskanaal:
-          title: Voorkeurskanaal
-          description: Het communicatiekanaal dat voor opvolging van de klantinteractie
-            de voorkeur heeft van de KLANT.
-          type: string
-          maxLength: 50
-        tekst:
-          title: Tekst
-          description: Een toelichting die inhoudelijk de klantinteractie van de klant
-            beschrijft.
-          type: string
-        status:
-          title: Status
-          description: 'De waarden van de typering van de voortgang van afhandeling
-            van een VERZOEK.
-
-
-            Uitleg bij mogelijke waarden:
-
-
-            * `ontvangen` - (Ontvangen) Het verzoek is ingediend en door de organisatie
-            ontvangen.
-
-            * `in_behandeling` - (In behandeling) Het is verzoek is in behandeling.
-
-            * `afgehandeld` - (Afgehandeld) Het verzoek zelf is afgehandeld. Eventuele
-            vervolg acties, zoals zaken die voortkomen uit het verzoek, hebben een
-            eigen status.
-
-            * `afgewezen` - (Afgewezen) Het verzoek is afgewezen zonder vervolg acties.
-
-            * `ingetrokken` - (Ingetrokken) De indiener heeft het verzoek ingetrokken.'
-          type: string
-          enum:
-          - ontvangen
-          - in_behandeling
-          - afgehandeld
-          - afgewezen
-          - ingetrokken
     Wijzigingen:
       title: Wijzigingen
       type: object
@@ -4309,6 +4875,6 @@ components:
             API).
           type: string
           format: uri
-          maxLength: 200
+          maxLength: 1000
         productIdentificatie:
           $ref: '#/components/schemas/Product'

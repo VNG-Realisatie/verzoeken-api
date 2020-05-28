@@ -3,6 +3,7 @@ from vng_api_common.filtersets import FilterSet
 from vng_api_common.utils import get_help_text
 
 from verzoeken.datamodel.models import (
+    KlantVerzoek,
     ObjectVerzoek,
     VerzoekContactMoment,
     VerzoekInformatieObject,
@@ -37,3 +38,9 @@ class VerzoekProductFilter(FilterSet):
     class Meta:
         model = VerzoekProduct
         fields = ("verzoek", "product", "product_identificatie__code")
+
+
+class KlantVerzoekFilter(FilterSet):
+    class Meta:
+        model = KlantVerzoek
+        fields = ("verzoek", "klant")

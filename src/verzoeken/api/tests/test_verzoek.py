@@ -29,7 +29,7 @@ class VerzoekTests(JWTAuthMixin, APITestCase):
 
     def test_read_verzoek(self):
         verzoek = VerzoekFactory.create(
-            klant=KLANT, interactiedatum=make_aware(datetime(2019, 1, 1)),
+            klant=KLANT, registratiedatum=make_aware(datetime(2019, 1, 1)),
         )
         detail_url = reverse(verzoek)
 
@@ -47,7 +47,7 @@ class VerzoekTests(JWTAuthMixin, APITestCase):
                 "externeIdentificatie": verzoek.externe_identificatie,
                 "identificatie": "VERZOEK-2019-0000000001",
                 "klant": KLANT,
-                "interactiedatum": "2019-01-01T00:00:00Z",
+                "registratiedatum": "2019-01-01T00:00:00Z",
                 "status": verzoek.status,
                 "tekst": verzoek.tekst,
                 "voorkeurskanaal": verzoek.voorkeurskanaal,
