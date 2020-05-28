@@ -36,26 +36,3 @@ class VerzoekStatus(DjangoChoices):
         _("Ingetrokken"),
         description=_("De indiener heeft het verzoek ingetrokken."),
     )
-
-
-class KlantRol(DjangoChoices):
-    belanghebbende = ChoiceItem("belanghebbende", _("Belanghebbende"))
-    initiator = ChoiceItem("initiator", _("Initiator"))
-    mede_initiator = ChoiceItem("mede_initiator", _("Mede-initiator"))
-
-
-class IndicatieMachtiging(DjangoChoices):
-    gemachtigde = ChoiceItem(
-        "gemachtigde",
-        _("Gemachtigde"),
-        description=_(
-            "De KLANT is door een andere KLANT gemachtigd om in het VERZOEK namens hem of haar te handelen."
-        ),
-    )
-    machtiginggever = ChoiceItem(
-        "machtiginggever",
-        _("Machtiginggever"),
-        description=_(
-            "De KLANT heeft een andere KLANT gemachtigd om in het VERZOEK namens hem of haar te handelen."
-        ),
-    )

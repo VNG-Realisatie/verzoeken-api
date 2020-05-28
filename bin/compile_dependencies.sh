@@ -20,10 +20,10 @@ pip-compile \
     requirements/dev.in
 
 
-# ci/tests deps
+# Jenkins/tests deps
 pip-compile \
     --no-index \
-    --output-file requirements/ci.txt \
+    --output-file requirements/jenkins.txt \
     requirements/base.txt \
     requirements/dev.txt \
-    requirements/ci.in
+    requirements/jenkins.in

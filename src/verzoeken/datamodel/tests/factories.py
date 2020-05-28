@@ -1,10 +1,11 @@
 import factory.fuzzy
 
-from ..constants import IndicatieMachtiging, KlantRol, ObjectTypes, VerzoekStatus
+from ..constants import ObjectTypes, VerzoekStatus
 
 
 class VerzoekFactory(factory.django.DjangoModelFactory):
     bronorganisatie = factory.Faker("ssn", locale="nl_NL")
+    klant = factory.Faker("url")
     tekst = factory.Faker("word")
     status = factory.fuzzy.FuzzyChoice(VerzoekStatus.values)
 
@@ -43,13 +44,3 @@ class VerzoekInformatieObjectFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = "datamodel.VerzoekInformatieObject"
-
-
-class KlantVerzoekFactory(factory.django.DjangoModelFactory):
-    verzoek = factory.SubFactory(VerzoekFactory)
-    klant = factory.Faker("url")
-    rol = factory.fuzzy.FuzzyChoice(KlantRol.values)
-    indicatie_machtiging = factory.fuzzy.FuzzyChoice(IndicatieMachtiging.values)
-
-    class Meta:
-        model = "datamodel.KlantVerzoek"

@@ -20,7 +20,6 @@ from vng_api_common.permissions import AuthScopesRequired
 from vng_api_common.viewsets import CheckQueryParamsMixin
 
 from verzoeken.datamodel.models import (
-    KlantVerzoek,
     ObjectVerzoek,
     Verzoek,
     VerzoekContactMoment,
@@ -30,7 +29,6 @@ from verzoeken.datamodel.models import (
 
 from .audits import AUDIT_VERZOEKEN
 from .filters import (
-    KlantVerzoekFilter,
     ObjectVerzoekFilter,
     VerzoekContactMomentFilter,
     VerzoekInformatieObjectFilter,
@@ -44,7 +42,6 @@ from .scopes import (
     SCOPE_VERZOEKEN_BIJWERKEN,
 )
 from .serializers import (
-    KlantVerzoekSerializer,
     ObjectVerzoekSerializer,
     VerzoekContactMomentSerializer,
     VerzoekInformatieObjectSerializer,
@@ -386,55 +383,6 @@ class VerzoekProductViewSet(
     queryset = VerzoekProduct.objects.all()
     serializer_class = VerzoekProductSerializer
     filterset_class = VerzoekProductFilter
-    lookup_field = "uuid"
-    permission_classes = (AuthScopesRequired,)
-    required_scopes = {
-        "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
-        "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
-        "create": SCOPE_VERZOEKEN_AANMAKEN,
-        "destroy": SCOPE_VERZOEKEN_ALLES_VERWIJDEREN,
-        "update": SCOPE_VERZOEKEN_BIJWERKEN,
-        "partial_update": SCOPE_VERZOEKEN_BIJWERKEN,
-    }
-    notifications_kanaal = KANAAL_VERZOEKEN
-    audit = AUDIT_VERZOEKEN
-
-
-class KlantVerzoekViewSet(
-    NotificationCreateMixin,
-    NotificationDestroyMixin,
-    AuditTrailCreateMixin,
-    AuditTrailDestroyMixin,
-    CheckQueryParamsMixin,
-    mixins.CreateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.ReadOnlyModelViewSet,
-):
-    """
-    Opvragen en bewerken van KLANT-VERZOEK relaties.
-
-    create:
-    Maak een KLANT-VERZOEK relatie aan.
-
-    list:
-    Alle KLANT-VERZOEK relaties opvragen.
-
-    Deze lijst kan gefilterd wordt met query-string parameters.
-
-    retrieve:
-    Een specifieke KLANT-VERZOEK relatie opvragen.
-
-    Een specifieke KLANT-VERZOEK relatie opvragen.
-
-    destroy:
-    Verwijder een KLANT-VERZOEK relatie.
-
-    Verwijder een KLANT-VERZOEK relatie.
-    """
-
-    queryset = KlantVerzoek.objects.all()
-    serializer_class = KlantVerzoekSerializer
-    filterset_class = KlantVerzoekFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {

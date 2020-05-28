@@ -5,7 +5,6 @@ from vng_api_common import routers
 from vng_api_common.schema import SchemaView
 
 from .viewsets import (
-    KlantVerzoekViewSet,
     ObjectVerzoekViewSet,
     VerzoekAuditTrailViewSet,
     VerzoekContactMomentViewSet,
@@ -20,7 +19,6 @@ router.register(
     VerzoekViewSet,
     [routers.nested("audittrail", VerzoekAuditTrailViewSet)],
 )
-router.register("klantverzoeken", KlantVerzoekViewSet)
 router.register("objectverzoeken", ObjectVerzoekViewSet)
 router.register("verzoekinformatieobjecten", VerzoekInformatieObjectViewSet)
 router.register("verzoekcontactmomenten", VerzoekContactMomentViewSet)

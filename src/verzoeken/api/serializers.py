@@ -15,14 +15,8 @@ from vng_api_common.validators import (
 )
 
 from verzoeken.api.auth import get_auth
-from verzoeken.datamodel.constants import (
-    IndicatieMachtiging,
-    KlantRol,
-    ObjectTypes,
-    VerzoekStatus,
-)
+from verzoeken.datamodel.constants import ObjectTypes, VerzoekStatus
 from verzoeken.datamodel.models import (
-    KlantVerzoek,
     ObjectVerzoek,
     Verzoek,
     VerzoekContactMoment,
@@ -44,22 +38,15 @@ class VerzoekSerializer(serializers.HyperlinkedModelSerializer):
             "identificatie",
             "bronorganisatie",
             "externe_identificatie",
-            "registratiedatum",
+            "klant",
+            "interactiedatum",
             "voorkeurskanaal",
             "tekst",
             "status",
-            "in_te_trekken_verzoek",
-            "intrekkende_verzoek",
-            "aangevulde_verzoek",
-            "aanvullende_verzoek",
         )
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
             "identificatie": {"validators": [IsImmutableValidator()]},
-            "in_te_trekken_verzoek": {"lookup_field": "uuid"},
-            "intrekkende_verzoek": {"lookup_field": "uuid", "read_only": True,},
-            "aangevulde_verzoek": {"lookup_field": "uuid"},
-            "aanvullende_verzoek": {"lookup_field": "uuid", "read_only": True,},
         }
         # Replace a default "unique together" constraint.
         validators = [UniekeIdentificatieValidator("bronorganisatie", "identificatie")]
@@ -198,29 +185,3 @@ class VerzoekProductSerializer(serializers.HyperlinkedModelSerializer):
             )
 
         return validated_attrs
-
-
-class KlantVerzoekSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = KlantVerzoek
-        fields = ("url", "klant", "verzoek", "rol", "indicatie_machtiging")
-        validators = [
-            UniqueTogetherValidator(
-                queryset=KlantVerzoek.objects.all(), fields=["verzoek", "klant"],
-            ),
-        ]
-        extra_kwargs = {
-            "url": {"lookup_field": "uuid"},
-            "verzoek": {"lookup_field": "uuid", "validators": [IsImmutableValidator()]},
-            "klant": {"validators": [IsImmutableValidator()]},
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        indicatie_machtiging_display_mapping = add_choice_values_help_text(
-            IndicatieMachtiging
-        )
-        self.fields[
-            "indicatie_machtiging"
-        ].help_text += f"\n\n{indicatie_machtiging_display_mapping}"

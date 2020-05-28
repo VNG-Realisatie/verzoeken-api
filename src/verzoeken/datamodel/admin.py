@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from .models import (
-    KlantVerzoek,
     ObjectVerzoek,
     Verzoek,
     VerzoekContactMoment,
@@ -12,7 +11,7 @@ from .models import (
 
 @admin.register(Verzoek)
 class VerzoekAdmin(admin.ModelAdmin):
-    list_display = ["bronorganisatie", "identificatie", "status"]
+    list_display = ["bronorganisatie", "klant", "identificatie", "status"]
 
 
 @admin.register(ObjectVerzoek)
@@ -33,8 +32,3 @@ class VerzoekContactMomentAdmin(admin.ModelAdmin):
 @admin.register(VerzoekProduct)
 class VerzoekProductAdmin(admin.ModelAdmin):
     list_display = ["verzoek", "product"]
-
-
-@admin.register(KlantVerzoek)
-class KlantVerzoekAdmin(admin.ModelAdmin):
-    list_display = ["verzoek", "klant"]

@@ -5,7 +5,6 @@ from zds_client.tests.mocks import mock_client
 from verzoeken.tests.mixins import VerzoekInformatieObjectSyncMixin
 
 from .factories import (
-    KlantVerzoekFactory,
     VerzoekContactMomentFactory,
     VerzoekFactory,
     VerzoekInformatieObjectFactory,
@@ -57,15 +56,4 @@ class UniqueRepresentationTests(VerzoekInformatieObjectSyncMixin, TestCase):
 
         self.assertEqual(
             verzoek_contactmoment.unique_representation(), "(154760924 - 12345) - 222"
-        )
-
-    def test_klantverzoek(self):
-        klant_verzoek = KlantVerzoekFactory.create(
-            verzoek__bronorganisatie="154760924",
-            verzoek__identificatie="12345",
-            klant="http://some.klanten.nl/api/v1/klanten/333",
-        )
-
-        self.assertEqual(
-            klant_verzoek.unique_representation(), "(154760924 - 12345) - 333"
         )
