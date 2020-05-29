@@ -23,7 +23,7 @@ Deze API vereist autorisatie. Je kan de
 [token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te
 genereren.
 
-** Notificaties
+**Notificaties**
 
 {notification_documentation(KANAAL_VERZOEKEN)}
 

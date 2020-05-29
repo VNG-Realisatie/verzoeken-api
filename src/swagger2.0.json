@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "verzoeken API",
-        "description": "Een API voor het registreren, bewerken en opvragen van verzoeken.\n\n**Afhankelijkheden**\n\nDeze API is afhankelijk van:\n\n* Autorisaties API\n* Klanten API\n* Contactmomenten API *(optioneel)*\n* Zaken API *(optioneel)*\n* Documenten API *(optioneel)*\n\n**Autorisatie**\n\nDeze API vereist autorisatie. Je kan de\n[token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te\ngenereren.\n\n** Notificaties\n\nDeze API publiceert notificaties op het kanaal `verzoeken`.\n\n**Main resource**\n\n`verzoek`\n\n\n\n**Kenmerken**\n\n* `bronorganisatie`: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef\n\n**Resources en acties**\n\n\n**Handige links**\n\n* [Documentatie](https://zaakgerichtwerken.vng.cloud/standaard)\n* [Zaakgericht werken](https://zaakgerichtwerken.vng.cloud)\n",
+        "description": "Een API voor het registreren, bewerken en opvragen van verzoeken.\n\n**Afhankelijkheden**\n\nDeze API is afhankelijk van:\n\n* Autorisaties API\n* Klanten API\n* Contactmomenten API *(optioneel)*\n* Zaken API *(optioneel)*\n* Documenten API *(optioneel)*\n\n**Autorisatie**\n\nDeze API vereist autorisatie. Je kan de\n[token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te\ngenereren.\n\n**Notificaties**\n\nDeze API publiceert notificaties op het kanaal `verzoeken`.\n\n**Main resource**\n\n`verzoek`\n\n\n\n**Kenmerken**\n\n* `bronorganisatie`: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef\n\n**Resources en acties**\n\n\n**Handige links**\n\n* [Documentatie](https://zaakgerichtwerken.vng.cloud/standaard)\n* [Zaakgericht werken](https://zaakgerichtwerken.vng.cloud)\n",
         "contact": {
             "url": "https://zaakgerichtwerken.vng.cloud",
             "email": "standaarden.ondersteuning@vng.nl"
@@ -5232,7 +5232,7 @@
                 },
                 "rol": {
                     "title": "Rol",
-                    "description": "Rol van de KLANT bij het VERZOEK.",
+                    "description": "Rol van de KLANT bij het VERZOEK.\n\nUitleg bij mogelijke waarden:\n\n* `belanghebbende` - Belanghebbende\n* `initiator` - Initiator\n* `mede_initiator` - Mede-initiator",
                     "type": "string",
                     "enum": [
                         "belanghebbende",

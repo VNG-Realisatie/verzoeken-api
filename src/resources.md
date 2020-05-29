@@ -13,7 +13,13 @@ Objecttype op [GEMMA Online](https://www.gemmaonline.nl/index.php/Rgbz_1.0/doc/o
 | url | URL-referentie naar dit object. Dit is de unieke identificatie en locatie van dit object. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 | klant | URL-referentie naar een KLANT (in Klanten API) | string | ja | C​R​U​D |
 | verzoek | URL-referentie naar het VERZOEK. | string | ja | C​R​U​D |
-| rol | Rol van de KLANT bij het VERZOEK. | string | nee | C​R​U​D |
+| rol | Rol van de KLANT bij het VERZOEK.
+
+Uitleg bij mogelijke waarden:
+
+* `belanghebbende` - Belanghebbende
+* `initiator` - Initiator
+* `mede_initiator` - Mede-initiator | string | nee | C​R​U​D |
 | indicatieMachtiging | Indicatie machtiging
 
 Uitleg bij mogelijke waarden:
