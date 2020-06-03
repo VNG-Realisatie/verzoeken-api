@@ -31,7 +31,7 @@ info:
     genereren.
 
 
-    ** Notificaties
+    **Notificaties**
 
 
     Deze API publiceert notificaties op het kanaal `verzoeken`.
@@ -4475,7 +4475,17 @@ components:
           format: uri
         rol:
           title: Rol
-          description: Rol van de KLANT bij het VERZOEK.
+          description: 'Rol van de KLANT bij het VERZOEK.
+
+
+            Uitleg bij mogelijke waarden:
+
+
+            * `belanghebbende` - Belanghebbende
+
+            * `initiator` - Initiator
+
+            * `mede_initiator` - Mede-initiator'
           type: string
           enum:
           - belanghebbende
