@@ -77,7 +77,7 @@ Uitleg bij mogelijke waarden:
 | inTeTrekkenVerzoek | URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt verzocht ingetrokken te worden. | string | nee | C​R​U​D |
 | intrekkendeVerzoek | URL-referentie naar het (latere) VERZOEK waarin verzocht wordt dit VERZOEK in te trekken. Dit veld is alleen leesbaar en wordt automatisch gezet wanneer er een ander VERZOEK wordt aangemaakt dat dit VERZOEK intrekt. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 | aangevuldeVerzoek | URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt aangevuld. | string | nee | C​R​U​D |
-| aanvullendeVerzoek |  | string | nee | ~~C~~​R​~~U~~​~~D~~ |
+| aanvullendeVerzoek | URL-referentie naar het (latere) VERZOEK waarin dit VERZOEK wordt aangevuld. Dit veld is alleen leesbaar en wordt automatisch gezet indien een ander VERZOEK wordt aangemaakt dat dit VERZOEK aanvult. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 
 ## AuditTrail
 
