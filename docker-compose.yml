@@ -9,7 +9,7 @@ services:
     #   - POSTGRES_PASSWORD=${PG_PASSWORD:verzoeken}
   web:
     build: .
-    image: vngr/klantinteracties-api
+    image: vngr/verzoeken-api
     environment:
       - DJANGO_SETTINGS_MODULE=verzoeken.conf.docker
       - SECRET_KEY=${SECRET_KEY}
