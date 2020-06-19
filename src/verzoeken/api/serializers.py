@@ -57,7 +57,16 @@ class VerzoekSerializer(serializers.HyperlinkedModelSerializer):
             "url": {"lookup_field": "uuid"},
             "identificatie": {"validators": [IsImmutableValidator()]},
             "in_te_trekken_verzoek": {"lookup_field": "uuid"},
-            "intrekkende_verzoek": {"lookup_field": "uuid", "read_only": True,},
+            "intrekkende_verzoek": {
+                "lookup_field": "uuid",
+                "read_only": True
+                "help_text": _(
+                    "URL-referentie naar het (latere) VERZOEK waarin verzocht "
+                    "wordt dit VERZOEK in te trekken. Dit veld is alleen leesbaar "
+                    "en wordt automatisch gezet wanneer er een ander VERZOEK "
+                    "wordt aangemaakt dat dit VERZOEK intrekt."
+                ),
+            },
             "aangevulde_verzoek": {"lookup_field": "uuid"},
             "aanvullende_verzoek": {"lookup_field": "uuid", "read_only": True,},
         }
