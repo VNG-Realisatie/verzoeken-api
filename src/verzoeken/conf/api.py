@@ -25,6 +25,11 @@ SWAGGER_SETTINGS.update(
                 # 'type': 'apiKey',
             }
         },
+        "DEFAULT_FIELD_INSPECTORS": (
+            "vng_api_common.inspectors.fields.HyperlinkedIdentityFieldInspector",
+            "vng_api_common.inspectors.fields.HyperlinkedRelatedFieldInspector",
+        )
+        + BASE_SWAGGER_SETTINGS["DEFAULT_FIELD_INSPECTORS"],
     }
 )
 
