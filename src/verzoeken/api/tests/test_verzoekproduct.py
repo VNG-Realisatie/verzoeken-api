@@ -18,7 +18,7 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data["results"]), 2)
 
     def test_list_filter_verzoekproduct(self):
         list_url = reverse(VerzoekProduct)
@@ -31,13 +31,13 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(data["results"]), 1)
 
         response = self.client.get(list_url, {"product": vp2.product})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(data["results"]), 1)
 
     def test_read_verzoekproduct_with_product_url(self):
         verzoekproduct = VerzoekProductFactory.create()
@@ -136,3 +136,27 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(VerzoekProduct.objects.count(), 0)
+
+    def test_pagination_default(self):
+        VerzoekProductFactory.create_batch(2)
+        url = reverse(VerzoekProduct)
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
+
+    def test_pagination_page_param(self):
+        VerzoekProductFactory.create_batch(2)
+        url = reverse(VerzoekProduct)
+
+        response = self.client.get(url, {"page": 1})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])

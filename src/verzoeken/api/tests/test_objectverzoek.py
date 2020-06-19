@@ -27,7 +27,7 @@ class ObjectVerzoekTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data["results"]), 2)
 
     def test_read_objectverzoek(self):
         verzoek = VerzoekFactory.create()
@@ -172,9 +172,10 @@ class ObjectVerzoekFilterTests(JWTAuthMixin, APITestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data[0]["verzoek"], f"http://testserver.com{verzoek_url}"
+            response.data["results"][0]["verzoek"],
+            f"http://testserver.com{verzoek_url}",
         ),
 
     def test_filter_object(self):
@@ -183,5 +184,29 @@ class ObjectVerzoekFilterTests(JWTAuthMixin, APITestCase):
         response = self.client.get(self.list_url, {"object": oio.object})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]["object"], oio.object)
+        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(response.data["results"][0]["object"], oio.object)
+
+    def test_pagination_default(self):
+        ObjectVerzoekFactory.create_batch(2)
+        url = reverse(ObjectVerzoek)
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
+
+    def test_pagination_page_param(self):
+        ObjectVerzoekFactory.create_batch(2)
+        url = reverse(ObjectVerzoek)
+
+        response = self.client.get(url, {"page": 1})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
