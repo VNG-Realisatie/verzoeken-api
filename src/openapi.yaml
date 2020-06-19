@@ -95,6 +95,12 @@ paths:
         schema:
           type: string
           format: uri
+      - name: page
+        in: query
+        description: Een pagina binnen de gepagineerde set resultaten.
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -107,9 +113,25 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/KlantVerzoek'
+                required:
+                - count
+                - results
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  next:
+                    type: string
+                    format: uri
+                    nullable: true
+                  previous:
+                    type: string
+                    format: uri
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KlantVerzoek'
         '400':
           description: Bad request
           headers:
@@ -716,6 +738,12 @@ paths:
         schema:
           type: string
           format: uri
+      - name: page
+        in: query
+        description: Een pagina binnen de gepagineerde set resultaten.
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -728,9 +756,25 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ObjectVerzoek'
+                required:
+                - count
+                - results
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  next:
+                    type: string
+                    format: uri
+                    nullable: true
+                  previous:
+                    type: string
+                    format: uri
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ObjectVerzoek'
         '400':
           description: Bad request
           headers:
@@ -1312,6 +1356,12 @@ paths:
         schema:
           type: string
           format: uri
+      - name: page
+        in: query
+        description: Een pagina binnen de gepagineerde set resultaten.
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -1324,9 +1374,25 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VerzoekContactMoment'
+                required:
+                - count
+                - results
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  next:
+                    type: string
+                    format: uri
+                    nullable: true
+                  previous:
+                    type: string
+                    format: uri
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VerzoekContactMoment'
         '400':
           description: Bad request
           headers:
@@ -1931,6 +1997,13 @@ paths:
       operationId: verzoek_list
       summary: Alle VERZOEKen opvragen.
       description: Alle VERZOEKen opvragen.
+      parameters:
+      - name: page
+        in: query
+        description: Een pagina binnen de gepagineerde set resultaten.
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -1943,9 +2016,25 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Verzoek'
+                required:
+                - count
+                - results
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  next:
+                    type: string
+                    format: uri
+                    nullable: true
+                  previous:
+                    type: string
+                    format: uri
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Verzoek'
         '401':
           description: Unauthorized
           headers:
@@ -3169,6 +3258,12 @@ paths:
         schema:
           type: string
           format: uri
+      - name: page
+        in: query
+        description: Een pagina binnen de gepagineerde set resultaten.
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -3181,9 +3276,25 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VerzoekInformatieObject'
+                required:
+                - count
+                - results
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  next:
+                    type: string
+                    format: uri
+                    nullable: true
+                  previous:
+                    type: string
+                    format: uri
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VerzoekInformatieObject'
         '400':
           description: Bad request
           headers:
@@ -3803,6 +3914,12 @@ paths:
         required: false
         schema:
           type: string
+      - name: page
+        in: query
+        description: Een pagina binnen de gepagineerde set resultaten.
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -3815,9 +3932,25 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VerzoekProduct'
+                required:
+                - count
+                - results
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  next:
+                    type: string
+                    format: uri
+                    nullable: true
+                  previous:
+                    type: string
+                    format: uri
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VerzoekProduct'
         '400':
           description: Bad request
           headers:

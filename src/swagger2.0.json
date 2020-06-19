@@ -54,15 +54,44 @@
                         "required": false,
                         "type": "string",
                         "format": "uri"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Een pagina binnen de gepagineerde set resultaten.",
+                        "required": false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/KlantVerzoek"
+                            "required": [
+                                "count",
+                                "results"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "previous": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "results": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/KlantVerzoek"
+                                    }
+                                }
                             }
                         },
                         "headers": {
@@ -798,15 +827,44 @@
                         "required": false,
                         "type": "string",
                         "format": "uri"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Een pagina binnen de gepagineerde set resultaten.",
+                        "required": false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/ObjectVerzoek"
+                            "required": [
+                                "count",
+                                "results"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "previous": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "results": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/ObjectVerzoek"
+                                    }
+                                }
                             }
                         },
                         "headers": {
@@ -1500,15 +1558,44 @@
                         "required": false,
                         "type": "string",
                         "format": "uri"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Een pagina binnen de gepagineerde set resultaten.",
+                        "required": false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/VerzoekContactMoment"
+                            "required": [
+                                "count",
+                                "results"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "previous": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "results": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/VerzoekContactMoment"
+                                    }
+                                }
                             }
                         },
                         "headers": {
@@ -2229,14 +2316,44 @@
                 "operationId": "verzoek_list",
                 "summary": "Alle VERZOEKen opvragen.",
                 "description": "Alle VERZOEKen opvragen.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Een pagina binnen de gepagineerde set resultaten.",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Verzoek"
+                            "required": [
+                                "count",
+                                "results"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "previous": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "results": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Verzoek"
+                                    }
+                                }
                             }
                         },
                         "headers": {
@@ -3722,15 +3839,44 @@
                         "required": false,
                         "type": "string",
                         "format": "uri"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Een pagina binnen de gepagineerde set resultaten.",
+                        "required": false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/VerzoekInformatieObject"
+                            "required": [
+                                "count",
+                                "results"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "previous": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "results": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/VerzoekInformatieObject"
+                                    }
+                                }
                             }
                         },
                         "headers": {
@@ -4474,15 +4620,44 @@
                         "description": "De unieke code van het PRODUCT.",
                         "required": false,
                         "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Een pagina binnen de gepagineerde set resultaten.",
+                        "required": false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/VerzoekProduct"
+                            "required": [
+                                "count",
+                                "results"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "previous": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "x-nullable": true
+                                },
+                                "results": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/VerzoekProduct"
+                                    }
+                                }
                             }
                         },
                         "headers": {
