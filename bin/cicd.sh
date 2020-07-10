@@ -25,7 +25,7 @@ deploy() {
     "name":"${DEPLOYMENT}",
     "namespace":"zgw",
     "containerName":"${DEPLOYMENT}",
-    "image": "vngr/contactmomenten-api:${release_tag}"
+    "image": "vngr/verzoeken-api:${release_tag}"
 }
 EOF
     set -x
