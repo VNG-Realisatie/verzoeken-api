@@ -56,10 +56,35 @@ class VerzoekSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
             "identificatie": {"validators": [IsImmutableValidator()]},
-            "in_te_trekken_verzoek": {"lookup_field": "uuid"},
-            "intrekkende_verzoek": {"lookup_field": "uuid", "read_only": True,},
-            "aangevulde_verzoek": {"lookup_field": "uuid"},
-            "aanvullende_verzoek": {"lookup_field": "uuid", "read_only": True,},
+            "in_te_trekken_verzoek": {
+                "lookup_field": "uuid",
+                "min_length": 1,
+                "max_length": 1000,
+            },
+            "intrekkende_verzoek": {
+                "lookup_field": "uuid",
+                "read_only": True,
+                "min_length": 1,
+                "max_length": 1000,
+                "allow_null": True,
+                "help_text": _(
+                    "URL-referentie naar het (latere) VERZOEK waarin verzocht "
+                    "wordt dit VERZOEK in te trekken. Dit veld is alleen leesbaar "
+                    "en wordt automatisch gezet wanneer er een ander VERZOEK "
+                    "wordt aangemaakt dat dit VERZOEK intrekt."
+                ),
+            },
+            "aangevulde_verzoek": {
+                "lookup_field": "uuid",
+                "min_length": 1,
+                "max_length": 1000,
+            },
+            "aanvullende_verzoek": {
+                "lookup_field": "uuid",
+                "read_only": True,
+                "min_length": 1,
+                "max_length": 1000,
+            },
         }
         # Replace a default "unique together" constraint.
         validators = [UniekeIdentificatieValidator("bronorganisatie", "identificatie")]

@@ -75,7 +75,7 @@ Uitleg bij mogelijke waarden:
 * `afgewezen` - (Afgewezen) Het verzoek is afgewezen zonder vervolg acties.
 * `ingetrokken` - (Ingetrokken) De indiener heeft het verzoek ingetrokken. | string | ja | C​R​U​D |
 | inTeTrekkenVerzoek | URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt verzocht ingetrokken te worden. | string | nee | C​R​U​D |
-| intrekkendeVerzoek |  | string | nee | ~~C~~​R​~~U~~​~~D~~ |
+| intrekkendeVerzoek | URL-referentie naar het (latere) VERZOEK waarin verzocht wordt dit VERZOEK in te trekken. Dit veld is alleen leesbaar en wordt automatisch gezet wanneer er een ander VERZOEK wordt aangemaakt dat dit VERZOEK intrekt. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 | aangevuldeVerzoek | URL-referentie naar het (eerdere) VERZOEK dat door dit VERZOEK wordt aangevuld. | string | nee | C​R​U​D |
 | aanvullendeVerzoek |  | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 
