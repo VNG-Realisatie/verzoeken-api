@@ -4858,11 +4858,15 @@ components:
           nullable: true
         aanvullendeVerzoek:
           title: Aanvullende verzoek
+          description: URL-referentie naar het (latere) VERZOEK waarin dit VERZOEK
+            wordt aangevuld. Dit veld is alleen leesbaar en wordt automatisch gezet
+            indien een ander VERZOEK wordt aangemaakt dat dit VERZOEK aanvult.
           type: string
           format: uri
           readOnly: true
           maxLength: 1000
           minLength: 1
+          nullable: true
     Wijzigingen:
       title: Wijzigingen
       type: object

@@ -82,8 +82,15 @@ class VerzoekSerializer(serializers.HyperlinkedModelSerializer):
             "aanvullende_verzoek": {
                 "lookup_field": "uuid",
                 "read_only": True,
+                "allow_null": True,
                 "min_length": 1,
                 "max_length": 1000,
+                "help_text": _(
+                    "URL-referentie naar het (latere) VERZOEK waarin dit VERZOEK "
+                    "wordt aangevuld. Dit veld is alleen leesbaar en wordt "
+                    "automatisch gezet indien een ander VERZOEK wordt aangemaakt "
+                    "dat dit VERZOEK aanvult."
+                ),
             },
         }
         # Replace a default "unique together" constraint.
