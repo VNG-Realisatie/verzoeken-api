@@ -3,6 +3,7 @@ import logging
 from django.core.cache import caches
 
 from rest_framework import mixins, viewsets
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.serializers import ValidationError
 from rest_framework.settings import api_settings
 from vng_api_common.audittrails.viewsets import (
@@ -97,6 +98,7 @@ class VerzoekViewSet(
     serializer_class = VerzoekSerializer
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
         "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
@@ -157,6 +159,7 @@ class ObjectVerzoekViewSet(
     filterset_class = ObjectVerzoekFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
         "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
@@ -245,6 +248,7 @@ class VerzoekInformatieObjectViewSet(
     filterset_class = VerzoekInformatieObjectFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
         "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
@@ -332,6 +336,7 @@ class VerzoekContactMomentViewSet(
     filterset_class = VerzoekContactMomentFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
         "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
@@ -388,6 +393,7 @@ class VerzoekProductViewSet(
     filterset_class = VerzoekProductFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
         "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,
@@ -437,6 +443,7 @@ class KlantVerzoekViewSet(
     filterset_class = KlantVerzoekFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
         "retrieve": SCOPE_VERZOEKEN_ALLES_LEZEN,

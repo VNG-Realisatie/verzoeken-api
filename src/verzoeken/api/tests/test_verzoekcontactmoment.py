@@ -23,7 +23,7 @@ class VerzoekContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data["results"]), 2)
 
     def test_list_filter_verzoekcontactmoment(self):
         list_url = reverse(VerzoekContactMoment)
@@ -39,7 +39,7 @@ class VerzoekContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(data["results"]), 1)
 
         response = self.client.get(
             list_url, {"contactmoment": vc2.contactmoment}, HTTP_HOST="testserver.com",
@@ -47,7 +47,7 @@ class VerzoekContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(data["results"]), 1)
 
     def test_read_verzoekcontactmoment(self):
         verzoekcontactmoment = VerzoekContactMomentFactory.create()
@@ -93,3 +93,27 @@ class VerzoekContactMomentTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(VerzoekContactMoment.objects.count(), 0)
+
+    def test_pagination_default(self):
+        VerzoekContactMomentFactory.create_batch(2)
+        url = reverse(VerzoekContactMoment)
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
+
+    def test_pagination_page_param(self):
+        VerzoekContactMomentFactory.create_batch(2)
+        url = reverse(VerzoekContactMoment)
+
+        response = self.client.get(url, {"page": 1})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
