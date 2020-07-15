@@ -65,12 +65,12 @@ jobs:
       after_success: echo "trigger deploy?"
       deploy:
         - provider: script
-          script: bin/release_docker_image.sh latest
+          script: bin/release-docker-image.sh latest
           on:
             branch: master
 
         - provider: script
-          script: bin/release_docker_image.sh $TRAVIS_TAG
+          script: bin/release-docker-image.sh $TRAVIS_TAG
           on:
             tags: true
 
