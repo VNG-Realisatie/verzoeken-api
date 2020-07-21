@@ -61,16 +61,15 @@ jobs:
       before_install: skip
       install: skip
       before_script: skip
-      script: echo "noop"
-      after_success: echo "trigger deploy?"
+      script: echo "deploying..."
       deploy:
         - provider: script
-          script: bin/release-docker-image.sh latest
+          script: bash bin/cicd.sh latest no
           on:
             branch: master
 
         - provider: script
-          script: bin/release-docker-image.sh $TRAVIS_TAG
+          script: bash bin/cicd.sh $TRAVIS_TAG yes
           on:
             tags: true
 

@@ -7,11 +7,13 @@ CONTAINER_REPO=vngr/verzoeken-api
 
 git_tag=$(git tag --points-at HEAD) &>/dev/null
 git_branch=$(git rev-parse --abbrev-ref HEAD)
+git_commit=$(git rev-parse HEAD)
 
 
 build_image() {
     tag=$1
     docker build \
+        --build-arg COMMIT_HASH=${git_commit} \
         --target production \
         -t ${CONTAINER_REPO}:$tag \
         -f Dockerfile .
@@ -47,7 +49,6 @@ if [[ -n "$git_tag" ]]; then
     echo "Building image for git tag $git_tag"
 fi
 
-_release_tag=$(get_release_tag)
-release_tag=${1:-$_release_tag}
+release_tag=$(get_release_tag)
 build_image $release_tag
 push_image $release_tag

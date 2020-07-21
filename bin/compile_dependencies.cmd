@@ -17,10 +17,10 @@ pip-compile^
     requirements/testing.in^
     requirements/dev.in
 
-REM Jenkins/tests deps
+REM ci/tests deps
 pip-compile^
     --no-index^
-    --output-file requirements/jenkins.txt^
+    --output-file requirements/ci.txt^
     requirements/base.txt^
     requirements/dev.txt^
-    requirements/jenkins.in
+    requirements/ci.in

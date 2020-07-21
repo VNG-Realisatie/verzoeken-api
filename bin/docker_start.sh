@@ -2,21 +2,12 @@
 
 set -ex
 
-# Wait for the database container
-# See: https://docs.docker.com/compose/startup-order/
-export PGHOST=${DB_HOST:-db}
-export PGPORT=${DB_PORT:-5432}
-
 fixtures_dir=${FIXTURES_DIR:-/app/fixtures}
 
 uwsgi_port=${UWSGI_PORT:-8000}
 
-until pg_isready; do
-  >&2 echo "Waiting for database connection..."
-  sleep 1
-done
-
->&2 echo "Database is up."
+# Wait for required services
+${SCRIPTPATH}/wait_for_db.sh
 
 # Apply database migrations
 >&2 echo "Apply database migrations"
@@ -29,7 +20,7 @@ if [ -d $fixtures_dir ]; then
     for fixture in $(ls "$fixtures_dir/"*.json)
     do
         echo "Loading fixture $fixture"
-        src/manage.py loaddata $fixture
+        python src/manage.py loaddata $fixture
     done
 fi
 
