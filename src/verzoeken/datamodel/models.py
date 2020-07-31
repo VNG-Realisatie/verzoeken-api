@@ -63,7 +63,7 @@ class Verzoek(APIMixin, models.Model):
     )
     status = models.CharField(
         max_length=20,
-        choices=VerzoekStatus,
+        choices=VerzoekStatus.choices,
         help_text="De waarden van de typering van de voortgang van afhandeling van een VERZOEK.",
     )
     in_te_trekken_verzoek = models.OneToOneField(
