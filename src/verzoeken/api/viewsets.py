@@ -34,6 +34,7 @@ from .filters import (
     KlantVerzoekFilter,
     ObjectVerzoekFilter,
     VerzoekContactMomentFilter,
+    VerzoekFilter,
     VerzoekInformatieObjectFilter,
     VerzoekProductFilter,
 )
@@ -98,6 +99,7 @@ class VerzoekViewSet(
     serializer_class = VerzoekSerializer
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    filterset_class = VerzoekFilter
     pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_VERZOEKEN_ALLES_LEZEN,
