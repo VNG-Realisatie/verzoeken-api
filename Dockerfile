@@ -13,7 +13,7 @@ RUN apk --no-cache add \
 WORKDIR /app
 
 COPY ./requirements /app/requirements
-RUN pip install pip setuptools -U
+RUN pip install pip setuptools==47.1.1
 RUN pip install -r requirements/production.txt
 
 
