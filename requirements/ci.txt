@@ -13,7 +13,7 @@ click==7.1.2
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==4.5.4
-dataclasses==0.7
+dataclasses==0.6
 django-better-admin-arrayfield==1.0.4
 django-choices==1.7.0
 django-cors-middleware==1.4.0
