@@ -126,3 +126,254 @@ class VerzoekTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response_data["count"], 2)
         self.assertIsNone(response_data["previous"])
         self.assertIsNone(response_data["next"])
+
+
+class VerzoekFilterTests(JWTAuthMixin, APITestCase):
+    heeft_alle_autorisaties = True
+    maxDiff = None
+
+    def test_filter_identificatie(self):
+        VerzoekFactory.create(identificatie="000000000")
+        VerzoekFactory.create(identificatie="123456782")
+        url = reverse(Verzoek)
+
+        response = self.client.get(url, {"identificatie": "000000000"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["identificatie"], "000000000")
+
+    def test_filter_bronorganisatie(self):
+        VerzoekFactory.create(bronorganisatie="000000000")
+        VerzoekFactory.create(bronorganisatie="123456782")
+        url = reverse(Verzoek)
+
+        response = self.client.get(url, {"bronorganisatie": "000000000"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["bronorganisatie"], "000000000")
+
+    def test_filter_externe_identificatie(self):
+        VerzoekFactory.create(externe_identificatie="000000000")
+        VerzoekFactory.create(externe_identificatie="123456782")
+        url = reverse(Verzoek)
+
+        response = self.client.get(url, {"externe_identificatie": "000000000"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["externeIdentificatie"], "000000000")
+
+    def test_filter_registratiedatum(self):
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2019, 1, 1)))
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2020, 1, 1)))
+        url = reverse(Verzoek)
+
+        response = self.client.get(url, {"registratiedatum": "2020-01-01T00:00:00Z"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["registratiedatum"], "2020-01-01T00:00:00Z")
+
+    def test_filter_registratiedatum__gt(self):
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2019, 1, 1)))
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2020, 1, 1)))
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url, {"registratiedatum__gt": "2019-01-01T00:00:00Z"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["registratiedatum"], "2020-01-01T00:00:00Z")
+
+    def test_filter_registratiedatum__gte(self):
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2019, 1, 1)))
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2020, 1, 1)))
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url, {"registratiedatum__gte": "2020-01-01T00:00:00Z"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["registratiedatum"], "2020-01-01T00:00:00Z")
+
+    def test_filter_registratiedatum__lt(self):
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2019, 1, 1)))
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2020, 1, 1)))
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url, {"registratiedatum__lt": "2020-01-01T00:00:00Z"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["registratiedatum"], "2019-01-01T00:00:00Z")
+
+    def test_filter_registratiedatum__lte(self):
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2019, 1, 1)))
+        VerzoekFactory.create(registratiedatum=make_aware(datetime(2020, 1, 1)))
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url, {"registratiedatum__lte": "2019-01-01T00:00:00Z"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["registratiedatum"], "2019-01-01T00:00:00Z")
+
+    def test_filter_voorkeurskanaal(self):
+        VerzoekFactory.create(voorkeurskanaal="kanaal1")
+        VerzoekFactory.create(voorkeurskanaal="kanaal2")
+        url = reverse(Verzoek)
+
+        response = self.client.get(url, {"voorkeurskanaal": "kanaal2"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["voorkeurskanaal"], "kanaal2")
+
+    def test_filter_tekst(self):
+        VerzoekFactory.create(tekst="sometext1")
+        VerzoekFactory.create(tekst="sometext2")
+        url = reverse(Verzoek)
+
+        response = self.client.get(url, {"tekst": "sometext2"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["tekst"], "sometext2")
+
+    def test_filter_status(self):
+        VerzoekFactory.create(status=VerzoekStatus.afgehandeld)
+        VerzoekFactory.create(status=VerzoekStatus.afgewezen)
+        url = reverse(Verzoek)
+
+        response = self.client.get(url, {"status": VerzoekStatus.afgewezen})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["status"], VerzoekStatus.afgewezen)
+
+    def test_filter_in_te_trekken_verzoek(self):
+        verzoek1, verzoek2 = VerzoekFactory.create_batch(2)
+        VerzoekFactory.create(in_te_trekken_verzoek=verzoek1)
+        verzoek3 = VerzoekFactory.create(in_te_trekken_verzoek=verzoek2)
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url,
+            {"in_te_trekken_verzoek": f"http://testserver.com{reverse(verzoek2)}"},
+            HTTP_HOST="testserver.com",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["url"], f"http://testserver.com{reverse(verzoek3)}")
+        self.assertEqual(
+            result["inTeTrekkenVerzoek"], f"http://testserver.com{reverse(verzoek2)}"
+        )
+
+    def test_filter_intrekkende_verzoek(self):
+        verzoek1, verzoek2 = VerzoekFactory.create_batch(2)
+        VerzoekFactory.create(in_te_trekken_verzoek=verzoek1)
+        verzoek3 = VerzoekFactory.create(in_te_trekken_verzoek=verzoek2)
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url,
+            {"intrekkende_verzoek": f"http://testserver.com{reverse(verzoek3)}"},
+            HTTP_HOST="testserver.com",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["url"], f"http://testserver.com{reverse(verzoek2)}")
+        self.assertEqual(
+            result["intrekkendeVerzoek"], f"http://testserver.com{reverse(verzoek3)}"
+        )
+
+    def test_filter_aangevulde_verzoek(self):
+        verzoek1, verzoek2 = VerzoekFactory.create_batch(2)
+        VerzoekFactory.create(aangevulde_verzoek=verzoek1)
+        verzoek3 = VerzoekFactory.create(aangevulde_verzoek=verzoek2)
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url,
+            {"aangevulde_verzoek": f"http://testserver.com{reverse(verzoek2)}"},
+            HTTP_HOST="testserver.com",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["url"], f"http://testserver.com{reverse(verzoek3)}")
+        self.assertEqual(
+            result["aangevuldeVerzoek"], f"http://testserver.com{reverse(verzoek2)}"
+        )
+
+    def test_filter_aanvullende_verzoek(self):
+        verzoek1, verzoek2 = VerzoekFactory.create_batch(2)
+        VerzoekFactory.create(aangevulde_verzoek=verzoek1)
+        verzoek3 = VerzoekFactory.create(aangevulde_verzoek=verzoek2)
+        url = reverse(Verzoek)
+
+        response = self.client.get(
+            url,
+            {"aanvullende_verzoek": f"http://testserver.com{reverse(verzoek3)}"},
+            HTTP_HOST="testserver.com",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 1)
+
+        result = response_data["results"][0]
+        self.assertEqual(result["url"], f"http://testserver.com{reverse(verzoek2)}")
+        self.assertEqual(
+            result["aanvullendeVerzoek"], f"http://testserver.com{reverse(verzoek3)}"
+        )
