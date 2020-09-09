@@ -113,7 +113,9 @@ class ObjectVerzoekSerializer(serializers.HyperlinkedModelSerializer):
                 "lookup_field": "uuid",
                 "validators": [IsImmutableValidator()],
             },
-            "object": {"validators": [IsImmutableValidator()],},
+            "object": {
+                "validators": [IsImmutableValidator()],
+            },
             "object_type": {"validators": [IsImmutableValidator()]},
         }
         validators = [ObjectVerzoekCreateValidator()]
@@ -213,9 +215,15 @@ class VerzoekProductSerializer(serializers.HyperlinkedModelSerializer):
             "url": {"lookup_field": "uuid"},
             "verzoek": {
                 "lookup_field": "uuid",
-                "validators": [IsImmutableValidator(),],
+                "validators": [
+                    IsImmutableValidator(),
+                ],
             },
-            "product": {"validators": [IsImmutableValidator(),],},
+            "product": {
+                "validators": [
+                    IsImmutableValidator(),
+                ],
+            },
         }
 
     def validate(self, attrs):
@@ -238,7 +246,8 @@ class KlantVerzoekSerializer(serializers.HyperlinkedModelSerializer):
         fields = ("url", "klant", "verzoek", "rol", "indicatie_machtiging")
         validators = [
             UniqueTogetherValidator(
-                queryset=KlantVerzoek.objects.all(), fields=["verzoek", "klant"],
+                queryset=KlantVerzoek.objects.all(),
+                fields=["verzoek", "klant"],
             ),
         ]
         extra_kwargs = {

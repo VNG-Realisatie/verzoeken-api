@@ -39,7 +39,9 @@ class KlantVerzoekTests(JWTAuthMixin, APITestCase):
         self.assertEqual(len(data["results"]), 1)
 
         response = self.client.get(
-            list_url, {"klant": vc2.klant}, HTTP_HOST="testserver.com",
+            list_url,
+            {"klant": vc2.klant},
+            HTTP_HOST="testserver.com",
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

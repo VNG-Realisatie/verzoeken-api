@@ -51,9 +51,12 @@ class ObjectVerzoekTests(JWTAuthMixin, APITestCase):
             },
         )
 
-    @override_settings(LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",)
+    @override_settings(
+        LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",
+    )
     @patch(
-        "zds_client.client.get_operation_url", return_value="/api/v1/zaakverzoeken",
+        "zds_client.client.get_operation_url",
+        return_value="/api/v1/zaakverzoeken",
     )
     @patch("zds_client.tests.mocks.MockClient.fetch_schema", return_value={})
     @patch("vng_api_common.validators.obj_has_shape", return_value=True)
@@ -86,9 +89,12 @@ class ObjectVerzoekTests(JWTAuthMixin, APITestCase):
         self.assertEqual(objectverzoek.object_type, ObjectTypes.zaak)
         self.assertEqual(objectverzoek.object, ZAAK)
 
-    @override_settings(LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",)
+    @override_settings(
+        LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",
+    )
     @patch(
-        "zds_client.client.get_operation_url", return_value="/api/v1/zaakverzoeken",
+        "zds_client.client.get_operation_url",
+        return_value="/api/v1/zaakverzoeken",
     )
     @patch("zds_client.tests.mocks.MockClient.fetch_schema", return_value={})
     @patch("vng_api_common.validators.obj_has_shape", return_value=True)
@@ -112,7 +118,8 @@ class ObjectVerzoekTests(JWTAuthMixin, APITestCase):
         self.assertEqual(error["code"], "inconsistent-relation")
 
     @patch(
-        "zds_client.client.get_operation_url", return_value="/api/v1/zaakverzoeken",
+        "zds_client.client.get_operation_url",
+        return_value="/api/v1/zaakverzoeken",
     )
     @patch("zds_client.tests.mocks.MockClient.fetch_schema", return_value={})
     def test_destroy_objectverzoek(self, *mocks):
@@ -129,7 +136,8 @@ class ObjectVerzoekTests(JWTAuthMixin, APITestCase):
         self.assertEqual(ObjectVerzoek.objects.count(), 0)
 
     @patch(
-        "zds_client.client.get_operation_url", return_value="/api/v1/zaakverzoeken",
+        "zds_client.client.get_operation_url",
+        return_value="/api/v1/zaakverzoeken",
     )
     @patch("zds_client.tests.mocks.MockClient.fetch_schema", return_value={})
     def test_destroy_fail_existing_relation(self, *mocks):

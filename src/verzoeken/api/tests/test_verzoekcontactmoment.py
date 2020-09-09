@@ -42,7 +42,9 @@ class VerzoekContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(len(data["results"]), 1)
 
         response = self.client.get(
-            list_url, {"contactmoment": vc2.contactmoment}, HTTP_HOST="testserver.com",
+            list_url,
+            {"contactmoment": vc2.contactmoment},
+            HTTP_HOST="testserver.com",
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

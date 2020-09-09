@@ -35,7 +35,8 @@ class UniqueRepresentationTests(VerzoekInformatieObjectSyncMixin, TestCase):
     @override_settings(ZDS_CLIENT_CLASS="vng_api_common.mocks.MockClient")
     def test_verzoekinformatieobject(self):
         vio = VerzoekInformatieObjectFactory.create(
-            verzoek__bronorganisatie="154760924", verzoek__identificatie="12345",
+            verzoek__bronorganisatie="154760924",
+            verzoek__identificatie="12345",
         )
         responses = {
             vio.informatieobject: {

@@ -233,7 +233,8 @@ class KlantVerzoek(models.Model):
         help_text="URL-referentie naar het VERZOEK.",
     )
     klant = models.URLField(
-        max_length=1000, help_text=_("URL-referentie naar een KLANT (in Klanten API)"),
+        max_length=1000,
+        help_text=_("URL-referentie naar een KLANT (in Klanten API)"),
     )
     rol = models.CharField(
         max_length=100,

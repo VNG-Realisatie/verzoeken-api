@@ -11,7 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="verzoek", name="klant",),
+        migrations.RemoveField(
+            model_name="verzoek",
+            name="klant",
+        ),
         migrations.AlterField(
             model_name="verzoek",
             name="registratiedatum",
