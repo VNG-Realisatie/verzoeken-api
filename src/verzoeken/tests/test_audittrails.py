@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 from django.test import override_settings
 
+import requests_mock
 from rest_framework import status
 from rest_framework.test import APITestCase
 from vng_api_common.audittrails.models import AuditTrail
@@ -104,7 +105,9 @@ class AuditTrailTests(VerzoekInformatieObjectSyncMixin, JWTAuthMixin, APITestCas
         url = reverse(VerzoekProduct)
         verzoek_product_data = {"verzoek": verzoek_response["url"], "product": PRODUCT}
 
-        response = self.client.post(url, verzoek_product_data)
+        with requests_mock.Mocker() as m:
+            m.get(PRODUCT, json={})
+            response = self.client.post(url, verzoek_product_data)
 
         verzoek_product_response = response.data
 

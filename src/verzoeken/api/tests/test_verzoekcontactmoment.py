@@ -1,3 +1,4 @@
+import requests_mock
 from rest_framework import status
 from rest_framework.test import APITestCase
 from vng_api_common.tests import JWTAuthMixin, reverse
@@ -76,7 +77,9 @@ class VerzoekContactMomentTests(JWTAuthMixin, APITestCase):
         list_url = reverse(VerzoekContactMoment)
         data = {"verzoek": verzoek_url, "contactmoment": CONTACTMOMENT}
 
-        response = self.client.post(list_url, data)
+        with requests_mock.Mocker() as m:
+            m.get(CONTACTMOMENT, json={})
+            response = self.client.post(list_url, data)
 
         self.assertEqual(
             response.status_code, status.HTTP_201_CREATED, response.content
