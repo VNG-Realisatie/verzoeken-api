@@ -32,7 +32,10 @@ from verzoeken.datamodel.models import (
 )
 from verzoeken.sync.signals import SyncError
 
-from .validators import ObjectVerzoekCreateValidator
+from .validators import (
+    KlantProductUniqueTogetherValidator,
+    ObjectVerzoekCreateValidator,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -227,6 +230,16 @@ class VerzoekProductSerializer(serializers.HyperlinkedModelSerializer):
                 ],
             },
         }
+        validators = [
+            KlantProductUniqueTogetherValidator(
+                queryset=VerzoekProduct.objects.all(),
+                fields=["product", "verzoek"],
+            ),
+            KlantProductUniqueTogetherValidator(
+                queryset=VerzoekProduct.objects.all(),
+                fields=["product_code", "verzoek"],
+            ),
+        ]
 
     def validate(self, attrs):
         validated_attrs = super().validate(attrs)
