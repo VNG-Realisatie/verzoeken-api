@@ -1,7 +1,7 @@
 import requests_mock
 from rest_framework import status
 from rest_framework.test import APITestCase
-from vng_api_common.tests import JWTAuthMixin, reverse
+from vng_api_common.tests import JWTAuthMixin, get_validation_errors, reverse
 
 from verzoeken.datamodel.models import VerzoekContactMoment
 from verzoeken.datamodel.tests.factories import (
@@ -89,6 +89,25 @@ class VerzoekContactMomentTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(verzoekcontactmoment.verzoek, verzoek)
         self.assertEqual(verzoekcontactmoment.contactmoment, CONTACTMOMENT)
+
+    def test_create_verzoekcontactmoment_with_invalid_contactmoment_url(self):
+        verzoek = VerzoekFactory.create()
+        verzoek_url = reverse(verzoek)
+        list_url = reverse(VerzoekContactMoment)
+        data = {"verzoek": verzoek_url, "contactmoment": CONTACTMOMENT}
+
+        with requests_mock.Mocker() as m:
+            m.get(CONTACTMOMENT, status_code=404)
+            response = self.client.post(list_url, data)
+
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST, response.content
+        )
+
+        self.assertEqual(VerzoekContactMoment.objects.count(), 0)
+
+        error = get_validation_errors(response, "contactmoment")
+        self.assertEqual(error["code"], "bad-url")
 
     def test_destroy_verzoekcontactmoment(self):
         verzoekcontactmoment = VerzoekContactMomentFactory.create()

@@ -1,7 +1,7 @@
 import requests_mock
 from rest_framework import status
 from rest_framework.test import APITestCase
-from vng_api_common.tests import JWTAuthMixin, reverse
+from vng_api_common.tests import JWTAuthMixin, get_validation_errors, reverse
 
 from verzoeken.datamodel.models import KlantVerzoek
 from verzoeken.datamodel.tests.factories import KlantVerzoekFactory, VerzoekFactory
@@ -88,6 +88,25 @@ class KlantVerzoekTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(klantverzoek.verzoek, verzoek)
         self.assertEqual(klantverzoek.klant, KLANT)
+
+    def test_create_klantverzoek_with_invalid_klant_url(self):
+        verzoek = VerzoekFactory.create()
+        verzoek_url = reverse(verzoek)
+        list_url = reverse(KlantVerzoek)
+        data = {"verzoek": verzoek_url, "klant": KLANT}
+
+        with requests_mock.Mocker() as m:
+            m.get(KLANT, status_code=404)
+            response = self.client.post(list_url, data)
+
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST, response.content
+        )
+
+        self.assertEqual(KlantVerzoek.objects.count(), 0)
+
+        error = get_validation_errors(response, "klant")
+        self.assertEqual(error["code"], "bad-url")
 
     def test_destroy_klantverzoek(self):
         klantverzoek = KlantVerzoekFactory.create()

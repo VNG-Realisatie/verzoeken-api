@@ -1,3 +1,4 @@
+import requests_mock
 from rest_framework import status
 from rest_framework.test import APITestCase
 from vng_api_common.tests import JWTAuthMixin, get_validation_errors, reverse
@@ -95,6 +96,23 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(verzoekproduct.verzoek, verzoek)
         self.assertEqual(verzoekproduct.product, data["product"])
+
+    def test_create_verzoekproduct_with_invalid_product_url(self):
+        verzoek = VerzoekFactory.create()
+        verzoek_url = reverse(verzoek)
+        list_url = reverse(VerzoekProduct)
+        data = {"verzoek": verzoek_url, "product": "https://example.com/404"}
+
+        with requests_mock.Mocker() as m:
+            m.get("https://example.com/404", status_code=404)
+            response = self.client.post(list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        self.assertEqual(VerzoekProduct.objects.count(), 0)
+
+        error = get_validation_errors(response, "product")
+        self.assertEqual(error["code"], "bad-url")
 
     def test_create_verzoekproduct_with_product_id(self):
         verzoek = VerzoekFactory.create()
