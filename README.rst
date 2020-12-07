@@ -14,8 +14,8 @@ Referentieimplementatie van de Verzoeken API.
 Inleiding
 =========
 
-Deze referentieimplementatie toont aan dat de API specificatie voor Verzoeken 
-implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien 
+Deze referentieimplementatie toont aan dat de API specificatie voor Verzoeken
+implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien
 ergens twijfel bestaat.
 
 Deze component heeft ook een `testomgeving`_ waar leveranciers tegenaan kunnen
@@ -46,9 +46,9 @@ Licensed under the EUPL_
 
 .. _EUPL: LICENCE.md
 
-.. |build-status| image:: https://travis-ci.org/VNG-Realisatie/verzoeken-api.svg?branch=master
+.. |build-status| image:: https://travis-ci.com/VNG-Realisatie/verzoeken-api.svg?branch=master
     :alt: Build status
-    :target: https://travis-ci.org/VNG-Realisatie/verzoeken-api
+    :target: https://travis-ci.com/VNG-Realisatie/verzoeken-api
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
