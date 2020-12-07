@@ -7,15 +7,15 @@ Verzoeken API
 :Keywords: zaken, zaakgericht werken, GEMMA
 :PythonVersion: 3.7
 
-|build-status| |black|
+|build-status| |black| |lint-oas| |generate-sdks| |generate-postman-collection|
 
 Referentieimplementatie van de Verzoeken API.
 
 Inleiding
 =========
 
-Deze referentieimplementatie toont aan dat de API specificatie voor Verzoeken 
-implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien 
+Deze referentieimplementatie toont aan dat de API specificatie voor Verzoeken
+implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien
 ergens twijfel bestaat.
 
 Deze component heeft ook een `testomgeving`_ waar leveranciers tegenaan kunnen
@@ -52,5 +52,17 @@ Licensed under the EUPL_
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
+
+.. |lint-oas| image:: https://github.com/VNG-Realisatie/verzoeken-api/workflows/lint-oas/badge.svg
+    :alt: Lint OAS
+    :target: https://github.com/VNG-Realisatie/verzoeken-api/actions?query=workflow%3Alint-oas
+
+.. |generate-sdks| image:: https://github.com/VNG-Realisatie/verzoeken-api/workflows/generate-sdks/badge.svg
+    :alt: Generate SDKs
+    :target: https://github.com/VNG-Realisatie/verzoeken-api/actions?query=workflow%3Agenerate-sdks
+
+.. |generate-postman-collection| image:: https://github.com/VNG-Realisatie/verzoeken-api/workflows/generate-postman-collection/badge.svg
+    :alt: Generate Postman collection
+    :target: https://github.com/VNG-Realisatie/verzoeken-api/actions?query=workflow%3Agenerate-postman-collection
 
 .. _testomgeving: https://verzoeken-api.vng.cloud
