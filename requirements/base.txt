@@ -50,4 +50,4 @@ unidecode==1.1.1          # via vng-api-common
 uritemplate==3.0.0        # via coreapi, drf-yasg
 urllib3==1.25.6           # via requests
 uwsgi==2.0.18
-vng-api-common==1.5.2
+vng-api-common==1.5.7
