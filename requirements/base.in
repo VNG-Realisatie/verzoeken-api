@@ -4,6 +4,7 @@ python-dotenv
 python-dateutil
 pytz
 raven
+requests_mock
 markdown
 uwsgi
 

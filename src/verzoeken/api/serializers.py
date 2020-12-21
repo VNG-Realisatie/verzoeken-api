@@ -12,6 +12,7 @@ from vng_api_common.validators import (
     IsImmutableValidator,
     ResourceValidator,
     UniekeIdentificatieValidator,
+    URLValidator,
 )
 
 from verzoeken.api.auth import get_auth
@@ -184,7 +185,7 @@ class VerzoekContactMomentSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
             "verzoek": {"lookup_field": "uuid", "validators": [IsImmutableValidator()]},
-            "contactmoment": {"validators": [IsImmutableValidator()]},
+            "contactmoment": {"validators": [IsImmutableValidator(), URLValidator()]},
         }
 
 
@@ -222,6 +223,7 @@ class VerzoekProductSerializer(serializers.HyperlinkedModelSerializer):
             "product": {
                 "validators": [
                     IsImmutableValidator(),
+                    URLValidator(),
                 ],
             },
         }
@@ -253,7 +255,7 @@ class KlantVerzoekSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
             "verzoek": {"lookup_field": "uuid", "validators": [IsImmutableValidator()]},
-            "klant": {"validators": [IsImmutableValidator()]},
+            "klant": {"validators": [IsImmutableValidator(), URLValidator()]},
         }
 
     def __init__(self, *args, **kwargs):
