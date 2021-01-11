@@ -60,6 +60,8 @@ RUN mkdir /app/log
 
 COPY --from=frontend-build /app/src/verzoeken/static/css /app/src/verzoeken/static/css
 COPY ./src /app/src
+ARG COMMIT_HASH
+ENV GIT_SHA=${COMMIT_HASH}
 
 ENV DJANGO_SETTINGS_MODULE=verzoeken.conf.docker
 

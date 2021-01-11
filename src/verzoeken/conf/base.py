@@ -1,5 +1,7 @@
 import os
 
+import raven
+
 from .api import *  # noqa
 
 SITE_ID = int(os.getenv("SITE_ID", 1))
@@ -280,6 +282,10 @@ CORS_ALLOW_HEADERS = (
     "content-crs",
 )
 
+if "GIT_SHA" in os.environ:
+    GIT_SHA = os.getenv("GIT_SHA")
+else:
+    GIT_SHA = raven.fetch_git_sha(BASE_DIR)
 
 # Raven
 SENTRY_DSN = os.getenv("SENTRY_DSN")
@@ -287,10 +293,7 @@ SENTRY_DSN = os.getenv("SENTRY_DSN")
 if SENTRY_DSN:
     INSTALLED_APPS = INSTALLED_APPS + ["raven.contrib.django.raven_compat"]
 
-    RAVEN_CONFIG = {
-        "dsn": SENTRY_DSN,
-        # 'release': raven.fetch_git_sha(BASE_DIR), doesn't work in Docker
-    }
+    RAVEN_CONFIG = {"dsn": SENTRY_DSN, "release": GIT_SHA}
     LOGGING["handlers"].update(
         {
             "sentry": {
