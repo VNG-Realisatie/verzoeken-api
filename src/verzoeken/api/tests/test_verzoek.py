@@ -4,7 +4,7 @@ from django.utils.timezone import make_aware
 
 from rest_framework import status
 from rest_framework.test import APITestCase
-from vng_api_common.tests import JWTAuthMixin, reverse
+from vng_api_common.tests import JWTAuthMixin, get_validation_errors, reverse
 
 from verzoeken.datamodel.constants import VerzoekStatus
 from verzoeken.datamodel.models import Verzoek
@@ -126,6 +126,20 @@ class VerzoekTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response_data["count"], 2)
         self.assertIsNone(response_data["previous"])
         self.assertIsNone(response_data["next"])
+
+    def test_update_verzoek_unique_bronorganisatie_and_identificatie(self):
+        VerzoekFactory.create(bronorganisatie="000000000", identificatie="unique")
+
+        # Create verzoek with same identificatie, but different bronorganisatie
+        verzoek = VerzoekFactory.create(identificatie="unique")
+        detail_url = reverse(verzoek)
+
+        response = self.client.patch(detail_url, {"bronorganisatie": "000000000"})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        error = get_validation_errors(response, "identificatie")
+        self.assertEqual(error["code"], "identificatie-niet-uniek")
 
 
 class VerzoekFilterTests(JWTAuthMixin, APITestCase):
