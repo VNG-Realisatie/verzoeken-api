@@ -5,6 +5,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 
 from rest_framework import exceptions, serializers
+from rest_framework.validators import UniqueTogetherValidator
 from vng_api_common.models import APICredential
 from vng_api_common.validators import ResourceValidator
 from zds_client import ClientError
@@ -106,3 +107,18 @@ class ObjectVerzoekCreateValidator:
             raise serializers.ValidationError(
                 self.message.format(object=object_type), code=self.code
             )
+
+
+class KlantProductUniqueTogetherValidator(UniqueTogetherValidator):
+    def enforce_required_fields(self, attrs):
+        # These attributes are optional, so this should not be enforced
+        return
+
+    def __call__(self, attrs):
+        # To ensure that the validation does not fail in case the attributes
+        # are missing (since they are not required)
+        if ("product" in self.fields and "product" not in attrs) or (
+            "product_code" in self.fields and "product_code" not in attrs
+        ):
+            return
+        super().__call__(attrs)

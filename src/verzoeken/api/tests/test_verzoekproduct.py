@@ -114,6 +114,22 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
         error = get_validation_errors(response, "product")
         self.assertEqual(error["code"], "bad-url")
 
+    def test_create_verzoekproduct_with_product_url_not_unique(self):
+        verzoek = VerzoekFactory.create()
+        verzoek_url = reverse(verzoek)
+
+        VerzoekProductFactory.create(verzoek=verzoek, product="https://example.com/")
+
+        list_url = reverse(VerzoekProduct)
+        data = {"verzoek": verzoek_url, "product": "https://example.com/"}
+
+        response = self.client.post(list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        error = get_validation_errors(response, "nonFieldErrors")
+        self.assertEqual(error["code"], "unique")
+
     def test_create_verzoekproduct_with_product_id(self):
         verzoek = VerzoekFactory.create()
         verzoek_url = reverse(verzoek)
@@ -132,6 +148,22 @@ class VerzoekProductTests(JWTAuthMixin, APITestCase):
         self.assertEqual(
             verzoekproduct.product_code, data["productIdentificatie"]["code"]
         )
+
+    def test_create_verzoekproduct_with_product_id_not_unique(self):
+        verzoek = VerzoekFactory.create()
+        verzoek_url = reverse(verzoek)
+
+        VerzoekProductFactory.create(verzoek=verzoek, product_code="test")
+
+        list_url = reverse(VerzoekProduct)
+        data = {"verzoek": verzoek_url, "productIdentificatie": {"code": "test"}}
+
+        response = self.client.post(list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        error = get_validation_errors(response, "nonFieldErrors")
+        self.assertEqual(error["code"], "unique")
 
     def test_create_verzoekproduct_without_product(self):
         verzoek = VerzoekFactory.create()
