@@ -61,7 +61,7 @@ RUN mkdir /app/log
 COPY --from=frontend-build /app/src/verzoeken/static/css /app/src/verzoeken/static/css
 COPY ./src /app/src
 
-RUN useradd -M -u 1000 user
+RUN adduser -D -H -u 1000  user
 RUN chown -R user /app
 
 # drop privileges
