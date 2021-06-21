@@ -60,6 +60,13 @@ RUN mkdir /app/log
 
 COPY --from=frontend-build /app/src/verzoeken/static/css /app/src/verzoeken/static/css
 COPY ./src /app/src
+
+RUN adduser -D -H -u 1000  user
+RUN chown -R user /app
+
+# drop privileges
+USER user
+
 ARG COMMIT_HASH
 ENV GIT_SHA=${COMMIT_HASH}
 
