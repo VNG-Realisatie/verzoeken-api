@@ -30,9 +30,9 @@
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
-    "postcss-loader": "^3.0.0",
+    "postcss-loader": "^7.0.2",
     "postcss-selector-lint": "^1.0.0",
-    "sass-loader": "^7.2.0",
+    "sass-loader": "^13.2.0",
     "swagger2openapi": "^6.1.1",
     "yargs": "^14.0.0"
   }
